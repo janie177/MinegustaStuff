@@ -4,10 +4,12 @@ import com.minegusta.minegustastuff.MinegustaStuff;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+
 public class ConfigFile {
     private static JavaPlugin p = MinegustaStuff.PLUGIN;
 
-    public static void saveDefaultConfig() {
+    public static void saveDefaultConfigFile() {
         p.saveDefaultConfig();
     }
 
@@ -22,5 +24,4 @@ public class ConfigFile {
     public static void reloadConfig() {
         p.reloadConfig();
     }
-
 }

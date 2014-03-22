@@ -40,7 +40,7 @@ public class DwarfInfect {
 
     public boolean hasShinyGem()
     {
-        return i.contains(Recipes.shinyGem);
+        return i.contains(Recipes.shinyGem());
     }
 
     public boolean isByLava()
@@ -51,7 +51,7 @@ public class DwarfInfect {
     public void makeDwarf()
     {
         Data.setRace(p.getUniqueId().toString(), "dwarf");
-        i.remove(Recipes.shinyGem);
+        i.remove(Recipes.shinyGem());
         p.updateInventory();
         successMessage();
         p.getWorld().spigot().playEffect(p.getLocation(), Effect.VILLAGER_THUNDERCLOUD, 0, 0, 3, 3, 3, 1, 30, 25);

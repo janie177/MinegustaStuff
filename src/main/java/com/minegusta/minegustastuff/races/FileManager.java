@@ -15,17 +15,12 @@ public class FileManager {
 
     public static void loadFile() {
         try {
-            createDataDir();
-            file = new File(p.getDataFolder() + "/data/", "races.yml");
+            file = new File(p.getDataFolder(), "races.yml");
 
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-        } catch (Exception e) {
-                e.printStackTrace();
-        }
-        conf = YamlConfiguration.loadConfiguration(file);
+            if (!file.exists()) {file.createNewFile();}
+        } catch (Exception e) {e.printStackTrace();}
 
+            conf = YamlConfiguration.loadConfiguration(file);
     }
 
     public static void saveFile() {
@@ -35,17 +30,4 @@ public class FileManager {
             e.printStackTrace();
         }
     }
-
-    private static void createDataDir()
-    {
-        File data = new File(p.getDataFolder() + "/data/");
-        if (!data.exists()) {
-            try {
-                data.mkdirs();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
 }

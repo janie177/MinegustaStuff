@@ -19,9 +19,10 @@ public class MinegustaStuff extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        PLUGIN = this;
         //Load Files
+        ConfigFile.saveDefaultConfigFile();
         FileManager.loadFile();
-        ConfigFile.saveDefaultConfig();
 
         //Reload safety
         RaceManager.onReloadAddRacesToMap();

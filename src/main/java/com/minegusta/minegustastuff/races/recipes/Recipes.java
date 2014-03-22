@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapelessRecipe;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
@@ -17,15 +18,19 @@ public class Recipes {
         dwarfRecipe();
     }
 
-    public static ItemStack shinyGem = new ItemStack(Material.NETHER_STAR, 1)
-    {
+    public static ItemStack shinyGem(){
+        ItemStack i = new ItemStack(Material.NETHER_STAR, 1)
         {
-            List<String> lore = getItemMeta().getLore();
-            lore.add(ChatColor.WHITE + "It's so shiny!!");
-            getItemMeta().setLore(lore);
-            getItemMeta().setDisplayName(ChatColor.GOLD + "Shiny Gem");
-        }
-    };
+            {
+                ItemMeta meta = getItemMeta();
+                List<String> lore = Lists.newArrayList();
+                lore.add(ChatColor.WHITE + "It's so shiny!!");
+                meta.setLore(lore);
+                meta.setDisplayName(ChatColor.GOLD + "Shiny Gem");
+            }
+        };
+        return i;
+    }
 
     private static void elfRecipe() {
         ItemStack i = new ItemStack(Material.MUSHROOM_SOUP, 1);
@@ -51,7 +56,7 @@ public class Recipes {
 
     private static void dwarfRecipe()
     {
-        Recipe dwarfRecipe = new ShapelessRecipe(shinyGem)
+        Recipe dwarfRecipe = new ShapelessRecipe(shinyGem())
         {
             {
                 addIngredient(1, Material.NETHER_STAR);
