@@ -49,6 +49,7 @@ public class PlayerListener implements Listener {
     public void playerBreakBlock(BlockBreakEvent e) {
         World w = e.getPlayer().getWorld();
         if (!pass(w)) return;
+        if (e.isCancelled()) return;
 
         DwarfPower mine = DwarfPower.miningBoost(e);
         if (mine.isDwarf()) {
@@ -200,6 +201,7 @@ public class PlayerListener implements Listener {
     public void onPlayerChatEvent(AsyncPlayerChatEvent e) {
         World w = e.getPlayer().getWorld();
         if (!pass(w)) return;
+        if (e.isCancelled()) return;
 
         EnderbornInfect enderbornInfect = EnderbornInfect.enderbornInfect(e);
 
