@@ -42,7 +42,7 @@ public class DwarfPower {
     Player player;
     double damage;
     LivingEntity livingVictim;
-    String uuid = entity.getUniqueId().toString();
+    String uuid;
     Action action;
     PlayerInteractEvent event;
     PlayerInteractEntityEvent entityEvent;
@@ -123,6 +123,9 @@ public class DwarfPower {
     }
 
     public boolean isDwarf() {
+        if (!isPlayer()) return false;
+        player = (Player) entity;
+        uuid = player.getUniqueId().toString();
         return RaceManager.pRaces.containsKey(uuid) && RaceManager.pRaces.get(uuid).equals("dwarf");
     }
 

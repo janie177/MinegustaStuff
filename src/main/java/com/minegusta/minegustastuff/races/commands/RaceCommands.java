@@ -44,18 +44,22 @@ public class RaceCommands implements CommandExecutor {
                     ConfigFile.reloadConfig();
                     sendText(reloaded, p);
                     return true;
-                } else if(args[0].equalsIgnoreCase("infection") && args.length > 1){
-                    switch (args[1].toLowerCase())
-                    {
-                        case "human": sendText(humanInfect, p);
+                } else if (args[0].equalsIgnoreCase("infection") && args.length > 1) {
+                    switch (args[1].toLowerCase()) {
+                        case "human":
+                            sendText(humanInfect, p);
                             break;
-                        case "elf": sendText(elfInfect, p);
+                        case "elf":
+                            sendText(elfInfect, p);
                             break;
-                        case "dwarf": sendText(dwarfInfect, p);
+                        case "dwarf":
+                            sendText(dwarfInfect, p);
                             break;
-                        case "enderborn": sendText(enderbornInfect, p);
+                        case "enderborn":
+                            sendText(enderbornInfect, p);
                             break;
-                        default: sendText(help, p);
+                        default:
+                            sendText(help, p);
                             break;
                     }
 
@@ -71,6 +75,7 @@ public class RaceCommands implements CommandExecutor {
                         return true;
                     } else {
                         sendText(help, p);
+                        return true;
                     }
                 }
             } else {

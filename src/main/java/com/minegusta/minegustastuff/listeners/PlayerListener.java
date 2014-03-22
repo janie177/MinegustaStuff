@@ -154,7 +154,7 @@ public class PlayerListener implements Listener {
         Altar altar = Altar.altarCheck(e);
 
         if (rage.isRightClick() && rage.isDwarf() && rage.hasAxe()) {
-            rage.applyAxeBoost();
+            rage.applyBattleCryBoost();
         }
 
         if (altar.isRightClick() && altar.isAltar() && altar.hasDiamondBlocks() && altar.isNotHuman()) {
