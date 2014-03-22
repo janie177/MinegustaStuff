@@ -7,8 +7,8 @@ import java.util.List;
 
 public class Races {
     public static String getDefaultRace() {
-        if (ConfigFile.getDefaultConfig().isSet("defaultrace")) {
-            return ConfigFile.getDefaultConfig().getString("defaultrace");
+        if (ConfigFile.getDefaultConfig().isSet("default_race")) {
+            return ConfigFile.getDefaultConfig().getString("default_race");
         }
         return "human";
     }

@@ -83,7 +83,7 @@ public class PlayerListener implements Listener {
     public void entityDamageByEntity(EntityDamageByEntityEvent e) {
         World w = e.getEntity().getWorld();
         if (!pass(w)) return;
-        if(e.isCancelled())return;
+        if (e.isCancelled()) return;
 
         ElfPower arrow = ElfPower.arrowDamage(e);
         DwarfPower axe = DwarfPower.axeBoost(e);
@@ -112,7 +112,7 @@ public class PlayerListener implements Listener {
     public void entityDamageEvent(EntityDamageEvent e) {
         World w = e.getEntity().getWorld();
         if (!pass(w)) return;
-        if(e.isCancelled())return;
+        if (e.isCancelled()) return;
 
         DwarfPower arrowWeakness = DwarfPower.arrowWeaknesBoost(e);
         ElfPower fireWeakness = ElfPower.fireDamage(e);
@@ -138,8 +138,7 @@ public class PlayerListener implements Listener {
             strengthBoost.applyStrengthBoost();
         }
 
-        if(dwarfInfect.isByLava() && dwarfInfect.isHuman() && dwarfInfect.hasShinyGem())
-        {
+        if (dwarfInfect.isByLava() && dwarfInfect.isHuman() && dwarfInfect.hasShinyGem()) {
             dwarfInfect.makeDwarf();
         }
     }
@@ -158,7 +157,6 @@ public class PlayerListener implements Listener {
         }
 
         if (altar.isRightClick() && altar.isAltar() && altar.hasDiamondBlocks() && altar.isNotHuman()) {
-            altar.playEffect();
             Cure.curePlayer(p);
         }
 
@@ -191,8 +189,7 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerWorldSwitch(PlayerChangedWorldEvent e)
-    {
+    public void onPlayerWorldSwitch(PlayerChangedWorldEvent e) {
         Player p = e.getPlayer();
         World w = p.getWorld();
 
@@ -200,15 +197,13 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerChatEvent(AsyncPlayerChatEvent e)
-    {
+    public void onPlayerChatEvent(AsyncPlayerChatEvent e) {
         World w = e.getPlayer().getWorld();
-        if(!pass(w))return;
+        if (!pass(w)) return;
 
         EnderbornInfect enderbornInfect = EnderbornInfect.enderbornInfect(e);
 
-        if(enderbornInfect.isSpell() && enderbornInfect.isHuman() && enderbornInfect.hasEyesOfEnder())
-        {
+        if (enderbornInfect.isSpell() && enderbornInfect.isHuman() && enderbornInfect.hasEyesOfEnder()) {
             enderbornInfect.makeEnderborn();
         }
     }
