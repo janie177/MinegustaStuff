@@ -16,9 +16,7 @@ public class Cure {
         return ConfigFile.getDefaultConfig();
     }
 
-    private static ItemStack i = new ItemStack(getConfig().getItemStack("cure_item"));
-    private static int cureAmount = getConfig().getInt("cure_amount");
-    private static Material mat = i.getType();
+    private static ItemStack i = new ItemStack(Material.DIAMOND, 30);
 
     public static void curePlayer(Player p) {
         String uuid = p.getUniqueId().toString();
@@ -44,11 +42,11 @@ public class Cure {
     }
 
     private static boolean hasItems(Player p) {
-        return p.getInventory().contains(mat, cureAmount);
+        return p.getInventory().contains(i);
     }
 
     private static void removeItems(Player p) {
-        p.getInventory().remove(new ItemStack(mat, cureAmount));
+        p.getInventory().remove(new ItemStack(i));
         p.updateInventory();
     }
 

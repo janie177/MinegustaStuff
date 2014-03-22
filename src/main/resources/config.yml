@@ -8,8 +8,6 @@ dwarf_weakness_arrows: 1.0
 battlecry_power: 2.2
 elf_bonus_damage_bow: 1.0
 enderborn_water_damage: 1.0
-cure_item: 264
-cure_amount: 30
 cure_message: 'You are now human!'
 cure_denied_message: 'You do not have the required items (30 Diamonds).'
 human:
