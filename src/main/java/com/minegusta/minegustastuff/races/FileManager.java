@@ -14,7 +14,8 @@ public class FileManager {
     static FileConfiguration conf;
 
     public static void loadFile() {
-        file = new File(p.getDataFolder() + "/data/" + "races.yml");
+        createDataDir();
+        file = new File(p.getDataFolder() + "/data/", "races.yml");
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -31,6 +32,18 @@ public class FileManager {
             conf.save(file);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void createDataDir()
+    {
+        File data = new File(p.getDataFolder() + "/data/");
+        if (!data.exists()) {
+            try {
+                data.mkdir();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
