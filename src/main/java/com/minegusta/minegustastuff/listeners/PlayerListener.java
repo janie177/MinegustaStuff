@@ -134,7 +134,7 @@ public class PlayerListener implements Listener {
 
         DwarfInfect dwarfInfect = DwarfInfect.dwarfInfect(e);
 
-        if (strengthBoost.isDwarf() && strengthBoost.victimIsLiving()) {
+        if (strengthBoost.isPlayer() && strengthBoost.killerIsPlayer() && strengthBoost.isDwarf()) {
             strengthBoost.applyStrengthBoost();
         }
 

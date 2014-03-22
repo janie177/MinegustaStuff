@@ -65,7 +65,6 @@ public class DwarfPower {
     private DwarfPower(EntityDeathEvent e) {
         victim = e.getEntity();
         entity = e.getEntity().getKiller();
-        uuid = entity.getUniqueId().toString();
         world = victim.getWorld();
     }
 
@@ -134,6 +133,14 @@ public class DwarfPower {
 
     public boolean victimIsLiving() {
         return victim instanceof LivingEntity;
+    }
+
+    public boolean killerIsPlayer() {
+        if (entity instanceof Player) {
+            uuid = entity.getUniqueId().toString();
+            return true;
+        }
+        return false;
     }
 
     public boolean isRightClick() {
