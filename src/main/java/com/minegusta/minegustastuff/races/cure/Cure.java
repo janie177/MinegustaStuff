@@ -3,7 +3,9 @@ package com.minegusta.minegustastuff.races.cure;
 import com.minegusta.minegustastuff.data.ConfigFile;
 import com.minegusta.minegustastuff.races.Data;
 import org.bukkit.ChatColor;
+import org.bukkit.Effect;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -32,6 +34,9 @@ public class Cure {
         removeItems(p);
         p.sendMessage(cureMessage());
         Data.setRace(uuid, "human");
+        p.getWorld().spigot().playEffect(p.getLocation(), Effect.CLOUD, 0, 0, 5, 5, 5, 1, 50, 25);
+        p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1, 1);
+
     }
 
     private static boolean canCure(String uuid) {

@@ -1,7 +1,6 @@
 package com.minegusta.minegustastuff.races.cure;
 
 import com.minegusta.minegustastuff.races.Data;
-import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -52,9 +51,5 @@ public class Altar {
 
     public boolean isNotHuman() {
         return !race.equalsIgnoreCase("human");
-    }
-
-    public void playEffect() {
-        b.getWorld().spigot().playEffect(b.getLocation(), Effect.CLOUD, 0, 0, 5, 5, 5, 1, 50, 25);
     }
 }
