@@ -72,6 +72,11 @@ public class RaceManager {
         }
     }
 
+    public static void updateRace(Player p) {
+        removePlayerFromRaceMap(p);
+        addPlayerToRaceMap(p);
+    }
+
     private static boolean isInMap(String mojangID) {
         return pRaces.containsKey(mojangID);
     }

@@ -1,6 +1,7 @@
 package com.minegusta.minegustastuff.races.infection;
 
 import com.minegusta.minegustastuff.races.Data;
+import com.minegusta.minegustastuff.races.RaceManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -49,7 +50,7 @@ public class EnderbornInfect {
         sendMessage();
         p.getWorld().spigot().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, 0, 0, 3, 3, 3, 1, 30, 25);
         p.playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 1, 1);
-
+        RaceManager.updateRace(p);
     }
 
     private void sendMessage()

@@ -1,6 +1,7 @@
 package com.minegusta.minegustastuff.races.infection;
 
 import com.minegusta.minegustastuff.races.Data;
+import com.minegusta.minegustastuff.races.RaceManager;
 import com.minegusta.minegustastuff.races.recipes.Recipes;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
@@ -56,6 +57,7 @@ public class DwarfInfect {
         successMessage();
         p.getWorld().spigot().playEffect(p.getLocation(), Effect.VILLAGER_THUNDERCLOUD, 0, 0, 3, 3, 3, 1, 30, 25);
         p.playSound(p.getLocation(), Sound.ANVIL_USE, 1, 1);
+        RaceManager.updateRace(p);
     }
 
     private void successMessage()
