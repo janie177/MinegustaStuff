@@ -14,14 +14,15 @@ public class FileManager {
     static FileConfiguration conf;
 
     public static void loadFile() {
-        createDataDir();
-        file = new File(p.getDataFolder() + "/data/", "races.yml");
-        if (!file.exists()) {
-            try {
+        try {
+            createDataDir();
+            file = new File(p.getDataFolder() + "/data/", "races.yml");
+
+            if (!file.exists()) {
                 file.createNewFile();
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+                e.printStackTrace();
         }
         conf = YamlConfiguration.loadConfiguration(file);
 
@@ -40,7 +41,7 @@ public class FileManager {
         File data = new File(p.getDataFolder() + "/data/");
         if (!data.exists()) {
             try {
-                data.mkdir();
+                data.mkdirs();
             } catch (Exception e) {
                 e.printStackTrace();
             }
