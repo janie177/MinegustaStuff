@@ -30,7 +30,7 @@ public class ElfPower {
     Player player;
     double damage;
     LivingEntity livingVictim;
-    String uuid = entity.getUniqueId().toString();
+    String uuid;
     Arrow arrow;
     ItemStack fruit;
     Entity mount;
@@ -40,22 +40,26 @@ public class ElfPower {
     private ElfPower(EntityDamageEvent e) {
         entity = e.getEntity();
         cause = e.getCause();
+        uuid = entity.getUniqueId().toString();
     }
 
     private ElfPower(EntityDamageByEntityEvent e) {
         entity = e.getDamager();
         victim = e.getEntity();
+        uuid = entity.getUniqueId().toString();
     }
 
     private ElfPower(PlayerItemConsumeEvent e) {
         entity = e.getPlayer();
         player = e.getPlayer();
         fruit = e.getItem();
+        uuid = entity.getUniqueId().toString();
     }
 
     private ElfPower(EntityMountEvent e) {
         entity = e.getEntity();
         mount = e.getMount();
+        uuid = entity.getUniqueId().toString();
     }
 
 //getting the class. ----------------------------------------------------------------------------------------------------------------------------------------------------------

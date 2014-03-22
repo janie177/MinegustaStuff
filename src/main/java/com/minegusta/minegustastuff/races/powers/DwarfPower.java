@@ -53,22 +53,26 @@ public class DwarfPower {
         entity = e.getDamager();
         victim = e.getEntity();
         damage = e.getDamage();
+        uuid = entity.getUniqueId().toString();
     }
 
     private DwarfPower(EntityDamageEvent e) {
         entity = e.getEntity();
         cause = e.getCause();
+        uuid = entity.getUniqueId().toString();
     }
 
     private DwarfPower(EntityDeathEvent e) {
         victim = e.getEntity();
         entity = e.getEntity().getKiller();
+        uuid = entity.getUniqueId().toString();
         world = victim.getWorld();
     }
 
     private DwarfPower(BlockBreakEvent e) {
         player = e.getPlayer();
         entity = player;
+        uuid = entity.getUniqueId().toString();
     }
 
     private DwarfPower(PlayerInteractEvent e) {
@@ -76,12 +80,14 @@ public class DwarfPower {
         entity = player;
         action = e.getAction();
         event = e;
+        uuid = entity.getUniqueId().toString();
     }
 
     private DwarfPower(PlayerInteractEntityEvent e) {
         player = e.getPlayer();
         entity = player;
         entityEvent = e;
+        uuid = entity.getUniqueId().toString();
     }
 
 
@@ -123,9 +129,6 @@ public class DwarfPower {
     }
 
     public boolean isDwarf() {
-        if (!isPlayer()) return false;
-        player = (Player) entity;
-        uuid = player.getUniqueId().toString();
         return RaceManager.pRaces.containsKey(uuid) && RaceManager.pRaces.get(uuid).equals("dwarf");
     }
 

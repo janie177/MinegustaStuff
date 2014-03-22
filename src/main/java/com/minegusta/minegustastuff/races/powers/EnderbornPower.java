@@ -19,7 +19,7 @@ public class EnderbornPower {
 //Variables. ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     Entity entity;
-    String uuid = entity.getUniqueId().toString();
+    String uuid;
     Entity victim;
     Entity damager;
     EntityDamageByEntityEvent event;
@@ -32,6 +32,7 @@ public class EnderbornPower {
         damager = e.getDamager();
         event = e;
         victim = entity;
+        uuid = entity.getUniqueId().toString();
     }
 //getting the class. ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -55,10 +56,6 @@ public class EnderbornPower {
 
     public boolean entityIsEnderBorn() {
         return RaceManager.pRaces.containsKey(uuid) && RaceManager.pRaces.get(uuid).equals("enderborn");
-    }
-
-    public boolean entityIsLiving() {
-        return entity instanceof LivingEntity;
     }
 
     public boolean damagerIsEndeborn() {
