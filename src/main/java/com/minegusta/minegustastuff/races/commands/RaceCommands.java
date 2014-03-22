@@ -69,6 +69,8 @@ public class RaceCommands implements CommandExecutor {
                     } else if (listContainsString(args[1], races)) {
                         sendText(getRaceInfo(args[1].toLowerCase()), p);
                         return true;
+                    } else {
+                        sendText(help, p);
                     }
                 }
             } else {
