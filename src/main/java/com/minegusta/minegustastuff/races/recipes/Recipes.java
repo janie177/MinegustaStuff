@@ -19,25 +19,24 @@ public class Recipes {
     }
 
     public static ItemStack shinyGem(){
-        ItemStack i = new ItemStack(Material.NETHER_STAR, 1)
-        {
-            {
-                ItemMeta meta = getItemMeta();
-                List<String> lore = Lists.newArrayList();
-                lore.add(ChatColor.WHITE + "It's so shiny!!");
-                meta.setLore(lore);
-                meta.setDisplayName(ChatColor.GOLD + "Shiny Gem");
-            }
-        };
+        ItemStack i = new ItemStack(Material.NETHER_STAR, 1);
+        ItemMeta meta = i.getItemMeta();
+        List<String> lore = Lists.newArrayList();
+        lore.add(ChatColor.WHITE + "It's so shiny!!");
+        meta.setLore(lore);
+        meta.setDisplayName(ChatColor.GOLD + "Shiny Gem");
+        i.setItemMeta(meta);
         return i;
     }
 
     private static void elfRecipe() {
         ItemStack i = new ItemStack(Material.MUSHROOM_SOUP, 1);
+        ItemMeta meta = i.getItemMeta();
         List<String> lore = Lists.newArrayList();
         lore.add(ChatColor.GREEN + "Vegan Stew");
-        i.getItemMeta().setLore(lore);
-        i.getItemMeta().setDisplayName(ChatColor.DARK_GREEN + "Stew..?");
+        meta.setLore(lore);
+        meta.setDisplayName(ChatColor.DARK_GREEN + "Stew..?");
+        i.setItemMeta(meta);
 
 
         Recipe elfRecipe = new ShapelessRecipe(i)
