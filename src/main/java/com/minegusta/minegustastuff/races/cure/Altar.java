@@ -16,14 +16,15 @@ public class Altar {
     private static String race;
     private static Block b;
     private static Action a;
+    private PlayerInteractEvent event;
 
 
     private Altar(PlayerInteractEvent e) {
-        mat = e.getClickedBlock().getType();
         p = e.getPlayer();
         race = Data.getRace(p.getUniqueId().toString());
         b = e.getClickedBlock();
         a = e.getAction();
+        event = e;
     }
 
     public static Altar altarCheck(PlayerInteractEvent e) {
@@ -35,7 +36,11 @@ public class Altar {
     }
 
     public boolean isRightClick() {
-        return a.equals(Action.RIGHT_CLICK_BLOCK);
+        if (a.equals(Action.RIGHT_CLICK_BLOCK)) {
+            mat = event.getClickedBlock().getType();
+            return true;
+        }
+        return false;
     }
 
     public boolean hasDiamondBlocks() {
