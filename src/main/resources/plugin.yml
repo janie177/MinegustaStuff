@@ -1,0 +1,10 @@
+main: com.minegusta.minegustastuff.MinegustaStuff
+author: janie177
+version: ${project.version}
+name: MinegustaStuff
+commands:
+   race:
+      description: Races help
+      usage: /Race
+      default: true
+      aliases: [races, classes, class, elf, dwarf, human, enderborn]

@@ -1,0 +1,51 @@
+defaultrace: 'Human'
+worlds:
+    - 'world'
+    - 'world_nether'
+    - 'world_the_end'
+dwarf_bonus_damage_axe: 2.0
+dwarf_weakness_arrows: 1.0
+battlecry_power: 2.2
+elf_bonus_damage_bow: 1.0
+enderborn_water_damage: 1.0
+cure_material: 264
+cure_amount: 30
+cure_message: 'You are now human!'
+cure_denied_message: 'You do not have the required items (30 Diamonds).'
+human:
+    - 'Humans are the default race. They offer normal gameplay.'
+    - 'Humans are the only race that can become vampire or werewolf.'
+    - 'Humans do not posess special powers nor weaknesses.'
+    - 'To become human again, right click an altar.'
+    - 'An altar is an emerald block with 2 diamond blocks beneath.'
+    - 'Transforming back costs an item fee.'
+elf:
+    - 'Elves are agile and skilled with bows.'
+    - 'They are also very good with animals.'
+    - 'Horses will be tamed instantly.'
+    - 'Nature will always benefit elves.'
+    - 'For example: Elves heal health when in water.'
+    - 'When eating fruit, elves regenerate health too.'
+    - 'Elves have a total of 8 health hearts.'
+    - 'Elves cannot stand fire though. They burn twice as fast. Especially wood elves.'
+enderborn:
+    - 'Enderborn are assassins from the end-realm.'
+    - 'They started inhabiting the overworld when they ran out of enderdragon meat.'
+    - 'Enderborn can vanish into shadow. They do this by crouching.'
+    - 'They also developped the ability to jump higher.'
+    - 'When throwing enderpearls, they take no damage.'
+    - 'Enderborn have sharp nails which can make enemies bleed as well.'
+    - 'Though they have a natural weakness for water.'
+    - 'In water, they get cannot move fast. They will be vulnerable too.'
+    - 'They will even get damage!'
+dwarf:
+    - 'Small and grumpy. Almost like cats.'
+    - 'Dwarves prefer axes in combat, and are quite skilled with them.'
+    - '12 health hearts makes them the race with most hearts.
+    - 'When killing a foe, they gain a temporary adrenaline boost.'
+    - 'They can even knock back groups of enemies with their battle cry.'
+    - 'This is activated by right clicking with an axe.'
+    - 'Dwarves are natural miners. They can mine faster than any other race.'
+    - 'If there's one thing dwarves hate, it's projectiles.'
+    - 'any type of projectile does additional damage to all dwarves.'
+
