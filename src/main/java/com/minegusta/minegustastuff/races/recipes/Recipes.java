@@ -64,6 +64,7 @@ public class Recipes {
                 addIngredient(2, Material.LAPIS_BLOCK);
             }
         };
+        Bukkit.getServer().addRecipe(dwarfRecipe);
     }
 
 }
