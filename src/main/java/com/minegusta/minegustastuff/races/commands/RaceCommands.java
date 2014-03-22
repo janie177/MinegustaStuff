@@ -40,7 +40,7 @@ public class RaceCommands implements CommandExecutor {
                 sendText(help, p);
                 return true;
             } else if (args.length > 0) {
-                if (args[0].equalsIgnoreCase("reload")) {
+                if (args[0].equalsIgnoreCase("reload") && p.isOp()) {
                     ConfigFile.reloadConfig();
                     sendText(reloaded, p);
                     return true;
