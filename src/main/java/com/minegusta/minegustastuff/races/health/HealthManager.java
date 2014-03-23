@@ -33,17 +33,17 @@ public class HealthManager {
     //Health setters
 
     private static void setHealthToElf(Player p) {
-        p.setHealthScale(10.0);
+        p.setHealthScale(16.0);
         p.setMaxHealth(16);
     }
 
     private static void setHealthToDwarf(Player p) {
-        p.setHealthScale(10.0);
+        p.setHealthScale(24.0);
         p.setMaxHealth(24);
     }
 
     private static void setHealthToNormal(Player p) {
-        p.setHealthScale(10.0);
+        p.setHealthScale(20.0);
         p.setMaxHealth(20.0);
     }
 
