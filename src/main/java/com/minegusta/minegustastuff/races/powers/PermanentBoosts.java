@@ -45,7 +45,7 @@ public class PermanentBoosts {
             if (pe.getType().equals(effect)) {
                 p.removePotionEffect(effect);
             }
-            p.addPotionEffect(new PotionEffect(effect, duration, amplifier));
         }
+        p.addPotionEffect(new PotionEffect(effect, duration, amplifier));
     }
 }
