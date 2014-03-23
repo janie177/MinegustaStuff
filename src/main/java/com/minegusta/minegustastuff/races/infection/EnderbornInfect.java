@@ -17,44 +17,43 @@ public class EnderbornInfect {
     private String message;
     private Inventory inv;
 
-    private EnderbornInfect(AsyncPlayerChatEvent e)
-    {
+    private EnderbornInfect(AsyncPlayerChatEvent e) {
         p = e.getPlayer();
         message = e.getMessage();
         inv = p.getInventory();
     }
 
-    public static EnderbornInfect enderbornInfect(AsyncPlayerChatEvent e)
-    {
+    public static EnderbornInfect enderbornInfect(AsyncPlayerChatEvent e) {
         return new EnderbornInfect(e);
     }
 
-    public boolean isHuman()
-    {
+    public boolean isHuman() {
         return Data.getRace(p.getUniqueId().toString()).equalsIgnoreCase("human");
     }
 
-    public boolean hasEyesOfEnder()
-    {
+    public boolean hasEyesOfEnder() {
         return inv.contains(new ItemStack(Material.EYE_OF_ENDER, 10));
     }
 
-    public boolean isSpell()
-    {
+    public boolean isSpell() {
         return message.equalsIgnoreCase("In fine autem omnes morimur");
     }
 
-    public void makeEnderborn()
-    {
+    public void makeEnderborn() {
         Data.setRace(p.getUniqueId().toString(), "enderborn");
         sendMessage();
         p.getWorld().spigot().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, 0, 0, 3, 3, 3, 1, 30, 25);
         p.playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 1, 1);
         RaceManager.updateRace(p);
+        removeEyesOfEnder();
+
     }
 
-    private void sendMessage()
-    {
+    private void removeEyesOfEnder() {
+        p.getInventory().remove(new ItemStack(Material.EYE_OF_ENDER, 10));
+    }
+
+    private void sendMessage() {
         p.sendMessage(ChatColor.DARK_PURPLE + "You are now enderborn!");
     }
 }

@@ -12,9 +12,9 @@ public class PermanentBoosts {
 
     public static void elfBoost() {
         for (Player p : RaceManager.elfMap) {
-            p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 3, 0, true));
+            updatePotionEffect(PotionEffectType.SPEED, p, 3 * 20, 0);
             if (isInWater(p)) {
-                p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 3, 0, true));
+                updatePotionEffect(PotionEffectType.REGENERATION, p, 3 * 20, 0);
                 p.getWorld().spigot().playEffect(p.getLocation(), Effect.HEART, 0, 0, 1, 2, 1, 3, 4, 25);
             }
         }
@@ -23,21 +23,29 @@ public class PermanentBoosts {
     public static void enderbornBoost() {
         for (Player p : RaceManager.enderbornMap) {
             if (isInWater(p)) {
-                p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 * 3, 0, true));
                 p.damage(ConfigFile.getDefaultConfig().getDouble("enderborn_water_damage"));
-                p.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 3 * 20, 1, true));
+                updatePotionEffect(PotionEffectType.WEAKNESS, p, 3 * 20, 1);
+                updatePotionEffect(PotionEffectType.SLOW, p, 3 * 20, 1);
             }
-
-            p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20 * 3, 1, true));
+            updatePotionEffect(PotionEffectType.JUMP, p, 3 * 20, 2);
 
             if (!p.isSneaking()) return;
+            updatePotionEffect(PotionEffectType.INVISIBILITY, p, 3 * 20, 0);
             p.getWorld().spigot().playEffect(p.getLocation(), Effect.PARTICLE_SMOKE, 0, 0, 1, 0, 1, 0, 25, 25);
-            p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 3 * 20, 0, true));
         }
     }
 
     private static boolean isInWater(Player p) {
         Material m = p.getLocation().getBlock().getType();
         return m.equals(Material.STATIONARY_WATER) || m.equals(Material.WATER);
+    }
+
+    private static void updatePotionEffect(PotionEffectType effect, Player p, int duration, int amplifier) {
+        for (PotionEffect pe : p.getActivePotionEffects()) {
+            if (pe.getType().equals(effect)) {
+                p.removePotionEffect(effect);
+            }
+            p.addPotionEffect(new PotionEffect(effect, duration, amplifier));
+        }
     }
 }
