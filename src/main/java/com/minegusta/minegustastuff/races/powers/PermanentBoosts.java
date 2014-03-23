@@ -28,7 +28,7 @@ public class PermanentBoosts {
                 p.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 3 * 20, 1, false));
             }
 
-            p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20 * 3, 0, false));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20 * 3, 1, false));
 
             if (!p.isSneaking()) return;
             p.getWorld().spigot().playEffect(p.getLocation(), Effect.PARTICLE_SMOKE, 0, 0, 1, 0, 1, 0, 25, 25);
