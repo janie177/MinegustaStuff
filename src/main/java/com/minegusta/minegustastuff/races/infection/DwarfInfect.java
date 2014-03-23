@@ -31,7 +31,7 @@ public class DwarfInfect {
 
     public boolean isHuman()
     {
-        if (Data.getRace(entity.getUniqueId().toString()).equalsIgnoreCase("human")) {
+        if (entity instanceof Player && Data.getRace(entity.getUniqueId().toString()).equalsIgnoreCase("human")) {
             p = (Player) entity;
             i = p.getInventory();
             return true;
