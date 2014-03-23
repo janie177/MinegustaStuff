@@ -73,7 +73,10 @@ public class RaceManager {
     }
 
     public static void updateRace(Player p) {
-        removePlayerFromRaceMap(p);
+        if (humanMap.contains(p)) humanMap.remove(p);
+        if (elfMap.contains(p)) elfMap.remove(p);
+        if (dwarfMap.contains(p)) dwarfMap.remove(p);
+        if (enderbornMap.contains(p)) enderbornMap.remove(p);
         addPlayerToRaceMap(p);
     }
 
