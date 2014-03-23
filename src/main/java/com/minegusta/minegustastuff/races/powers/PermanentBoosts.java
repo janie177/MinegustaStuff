@@ -12,9 +12,9 @@ public class PermanentBoosts {
 
     public static void elfBoost() {
         for (Player p : RaceManager.elfMap) {
-            p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 3, 0, false));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 3, 0, true));
             if (isInWater(p)) {
-                p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 3, 0, false));
+                p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 3, 0, true));
                 p.getWorld().spigot().playEffect(p.getLocation(), Effect.HEART, 0, 0, 1, 2, 1, 3, 4, 25);
             }
         }
@@ -23,16 +23,16 @@ public class PermanentBoosts {
     public static void enderbornBoost() {
         for (Player p : RaceManager.enderbornMap) {
             if (isInWater(p)) {
-                p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 * 3, 0, false));
+                p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 * 3, 0, true));
                 p.damage(ConfigFile.getDefaultConfig().getDouble("enderborn_water_damage"));
-                p.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 3 * 20, 1, false));
+                p.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 3 * 20, 1, true));
             }
 
-            p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20 * 3, 1, false));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20 * 3, 1, true));
 
             if (!p.isSneaking()) return;
             p.getWorld().spigot().playEffect(p.getLocation(), Effect.PARTICLE_SMOKE, 0, 0, 1, 0, 1, 0, 25, 25);
-            p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 3 * 20, 0, false));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 3 * 20, 0, true));
         }
     }
 
