@@ -159,13 +159,13 @@ public class DwarfPower {
 
     public void applyStrengthBoost() {
         Player p = (Player) entity;
-        p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 4, 0, false));
+        p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 4 * 20, 0, true));
         world.spigot().playEffect(entity.getLocation(), Effect.VILLAGER_THUNDERCLOUD, 0, 0, 1, 1, 1, 1, 6, 15);
         world.playSound(entity.getLocation(), Sound.BLAZE_BREATH, 1, 1);
     }
 
     public void applyMiningBoost() {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 4, 1, false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 3, true));
     }
 
     public void applyAxeBoost() {
