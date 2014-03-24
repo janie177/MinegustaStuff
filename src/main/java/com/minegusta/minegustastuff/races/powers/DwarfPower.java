@@ -29,7 +29,7 @@ public class DwarfPower {
 //Lists and Maps. -------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     List<ItemStack> itemStackList = Lists.newArrayList(new ItemStack(Material.WOOD_AXE), new ItemStack(Material.DIAMOND_AXE), new ItemStack(Material.GOLD_AXE), new ItemStack(Material.IRON_AXE), new ItemStack(Material.STONE_AXE));
-    ConcurrentMap<Player, Long> battleCryCooldown = Maps.newConcurrentMap();
+    ConcurrentMap<String, Long> battleCryCooldown = Maps.newConcurrentMap();
 
 
 //Variables. ------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -152,7 +152,7 @@ public class DwarfPower {
     }
 
     private boolean isInBattleCryMap() {
-        return battleCryCooldown.containsKey(player);
+        return battleCryCooldown.containsKey(player.getName());
     }
 
 //Applying boosts. ------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -177,7 +177,7 @@ public class DwarfPower {
         if (isInBattleCryMap()) {
             player = (Player) entity;
             long coolDownTime = TimeUnit.SECONDS.toMillis(ConfigFile.getDefaultConfig().getInt("battlecry_cooldown"));
-            if (System.currentTimeMillis() - battleCryCooldown.get(player) >= coolDownTime) {
+            if (System.currentTimeMillis() - battleCryCooldown.get(player.getName()) >= coolDownTime) {
                 runBattleCry(player);
                 if (event != null) event.setCancelled(true);
                 if (entityEvent != null) entityEvent.setCancelled(true);
@@ -187,7 +187,7 @@ public class DwarfPower {
         }
         if (event != null) event.setCancelled(true);
         if (entityEvent != null) entityEvent.setCancelled(true);
-        battleCryCooldown.put(player, System.currentTimeMillis());
+        battleCryCooldown.put(player.getName(), System.currentTimeMillis());
         runBattleCry(player);
     }
 
