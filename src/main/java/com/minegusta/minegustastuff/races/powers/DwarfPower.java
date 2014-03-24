@@ -171,7 +171,7 @@ public class DwarfPower {
                 RaceManager.battleCryCooldown.put(player.getUniqueId(), System.currentTimeMillis());
                 runBattleCry(player);
             } else {
-                player.sendMessage(ChatColor.RED + "You gotta wait another " + getRemainingCooldown(coolDownTime - (System.currentTimeMillis() - RaceManager.battleCryCooldown.get(player))) + " before you can use battlecry again.");
+                player.sendMessage(ChatColor.RED + "You gotta wait another " + getRemainingCooldown(coolDownTime - (System.currentTimeMillis() - RaceManager.battleCryCooldown.get(player.getUniqueId()))) + " before you can use battlecry again.");
             }
         } else {
             RaceManager.battleCryCooldown.put(player.getUniqueId(), System.currentTimeMillis());
