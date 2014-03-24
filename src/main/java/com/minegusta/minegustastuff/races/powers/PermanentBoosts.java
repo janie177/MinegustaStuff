@@ -4,8 +4,10 @@ import com.minegusta.minegustastuff.MinegustaStuff;
 import com.minegusta.minegustastuff.data.ConfigFile;
 import com.minegusta.minegustastuff.races.RaceManager;
 import org.bukkit.Effect;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -25,7 +27,8 @@ public class PermanentBoosts {
 
     public static void enderbornBoost() {
         for (Player p : RaceManager.enderbornMap) {
-            if (!pass(p.getWorld())) return;
+            World w = p.getWorld();
+            if (!pass(w)) return;
             if (isInWater(p)) {
                 p.damage(ConfigFile.getDefaultConfig().getDouble("enderborn_water_damage"));
                 updatePotionEffect(PotionEffectType.WEAKNESS, p, 3 * 20, 1);
@@ -33,9 +36,20 @@ public class PermanentBoosts {
             }
             updatePotionEffect(PotionEffectType.JUMP, p, 3 * 20, 2);
 
-            if (!p.isSneaking()) return;
-            updatePotionEffect(PotionEffectType.INVISIBILITY, p, 3 * 20, 0);
-            p.getWorld().spigot().playEffect(p.getLocation(), Effect.PARTICLE_SMOKE, 0, 0, 1, 0, 1, 0, 50, 25);
+            final Location loc = p.getLocation();
+            final int x = loc.getBlockX();
+            final int z = loc.getBlockZ();
+
+            if (isRaining(w) && isNotInDesert(x, z, w) && inInRain(w, x, z, loc)) {
+                p.damage(ConfigFile.getDefaultConfig().getDouble("enderborn_water_damage"));
+                updatePotionEffect(PotionEffectType.WEAKNESS, p, 3 * 20, 1);
+                updatePotionEffect(PotionEffectType.SLOW, p, 3 * 20, 1);
+            }
+
+            if (p.isSneaking()) {
+                updatePotionEffect(PotionEffectType.INVISIBILITY, p, 3 * 20, 0);
+                p.getWorld().spigot().playEffect(p.getLocation(), Effect.PARTICLE_SMOKE, 0, 0, 1, 0, 1, 0, 50, 25);
+            }
         }
     }
 
@@ -56,4 +70,19 @@ public class PermanentBoosts {
     private static boolean pass(World w) {
         return MinegustaStuff.worldCheck(w);
     }
+
+    private static boolean isRaining(World w) {
+        return w.hasStorm();
+    }
+
+    private static boolean inInRain(World w, int x, int z, Location loc) {
+
+        return w.getHighestBlockYAt(x, z) > loc.getBlockY();
+    }
+
+    private static boolean isNotInDesert(int x, int z, World w) {
+        Biome b = w.getBiome(x, z);
+        return !b.equals(Biome.DESERT) && !b.equals(Biome.DESERT_HILLS) && !b.equals(Biome.DESERT_MOUNTAINS);
+    }
 }
+

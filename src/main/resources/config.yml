@@ -36,7 +36,7 @@ enderborn:
     - 'Enderborn have sharp nails which can make enemies bleed as well.'
     - 'Though they have a natural weakness for water.'
     - 'In water, they get cannot move fast. They will be vulnerable too.'
-    - 'They will even get damage!'
+    - 'They will even get damage! This counts for rain too.'
 dwarf:
     - 'Small and grumpy. Almost like cats.'
     - 'Dwarves prefer axes in combat, and are quite skilled with them.'

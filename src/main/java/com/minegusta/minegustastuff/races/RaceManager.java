@@ -27,7 +27,7 @@ public class RaceManager {
 
         pRaces.put(mojangID, Data.getRace(mojangID));
 
-        switch (Data.getRace(mojangID)) {
+        switch (Data.getRace(mojangID).toLowerCase()) {
             case "human":
                 humanMap.add(p);
                 break;
