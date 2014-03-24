@@ -16,7 +16,7 @@ public class Tasks {
                 ConfigFile.save();
                 SupernaturalCheck.supernaturalCheck();
             }
-        }, 0, 20 * 120);
+        }, 0, 20 * 60);
     }
 
     public static int startBoostCheck() {
