@@ -172,7 +172,7 @@ public class PlayerListener implements Listener {
         DwarfPower rage = DwarfPower.battleCryBoost(e);
 
         if (rage.isDwarf() && rage.hasAxe()) {
-            rage.applyAxeBoost();
+            rage.applyBattleCryBoost();
         }
 
     }

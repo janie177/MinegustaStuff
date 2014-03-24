@@ -187,6 +187,7 @@ public class DwarfPower {
         }
         if (event != null) event.setCancelled(true);
         if (entityEvent != null) entityEvent.setCancelled(true);
+        battleCryCooldown.put(player, System.currentTimeMillis());
         runBattleCry(player);
     }
 
