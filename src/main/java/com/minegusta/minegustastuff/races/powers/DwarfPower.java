@@ -178,17 +178,19 @@ public class DwarfPower {
             player = (Player) entity;
             long coolDownTime = TimeUnit.SECONDS.toMillis(ConfigFile.getDefaultConfig().getInt("battlecry_cooldown"));
             if (System.currentTimeMillis() - battleCryCooldown.get(player.getName()) >= coolDownTime) {
+                battleCryCooldown.put(player.getName(), System.currentTimeMillis());
                 runBattleCry(player);
                 if (event != null) event.setCancelled(true);
                 if (entityEvent != null) entityEvent.setCancelled(true);
             } else {
                 player.sendMessage(ChatColor.RED + "You gotta wait another " + getRemainingCooldown(coolDownTime - (System.currentTimeMillis() - battleCryCooldown.get(player))) + " before you can use battlecry again.");
             }
+        } else {
+            if (event != null) event.setCancelled(true);
+            if (entityEvent != null) entityEvent.setCancelled(true);
+            battleCryCooldown.put(player.getName(), System.currentTimeMillis());
+            runBattleCry(player);
         }
-        if (event != null) event.setCancelled(true);
-        if (entityEvent != null) entityEvent.setCancelled(true);
-        battleCryCooldown.put(player.getName(), System.currentTimeMillis());
-        runBattleCry(player);
     }
 
 //Applying weaknesses. --------------------------------------------------------------------------------------------------------------------------------------------------------
