@@ -1,7 +1,6 @@
 package com.minegusta.minegustastuff.races.powers;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.minegusta.minegustastuff.MinegustaStuff;
 import com.minegusta.minegustastuff.data.ConfigFile;
 import com.minegusta.minegustastuff.races.RaceManager;
@@ -20,8 +19,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
 public class DwarfPower {
@@ -29,8 +26,6 @@ public class DwarfPower {
 //Lists and Maps. -------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     List<Material> axeList = Lists.newArrayList(Material.WOOD_AXE, Material.DIAMOND_AXE, Material.GOLD_AXE, Material.IRON_AXE, Material.STONE_AXE);
-    ConcurrentMap<UUID, Long> battleCryCooldown = Maps.newConcurrentMap();
-
 
 //Variables. ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -151,10 +146,6 @@ public class DwarfPower {
         return cause.equals(EntityDamageEvent.DamageCause.PROJECTILE);
     }
 
-    private boolean isInBattleCryMap() {
-        return battleCryCooldown.containsKey(player.getUniqueId());
-    }
-
 //Applying boosts. ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public void applyStrengthBoost() {
@@ -174,16 +165,16 @@ public class DwarfPower {
     }
 
     public void applyBattleCryBoost() {
-        if (isInBattleCryMap()) {
+        if (RaceManager.battleCryCooldown.containsKey(player.getUniqueId())) {
             long coolDownTime = TimeUnit.SECONDS.toMillis(ConfigFile.getDefaultConfig().getInt("battlecry_cooldown"));
-            if (System.currentTimeMillis() - battleCryCooldown.get(player.getUniqueId()) >= coolDownTime) {
-                battleCryCooldown.put(player.getUniqueId(), System.currentTimeMillis());
+            if (System.currentTimeMillis() - RaceManager.battleCryCooldown.get(player.getUniqueId()) >= coolDownTime) {
+                RaceManager.battleCryCooldown.put(player.getUniqueId(), System.currentTimeMillis());
                 runBattleCry(player);
             } else {
-                player.sendMessage(ChatColor.RED + "You gotta wait another " + getRemainingCooldown(coolDownTime - (System.currentTimeMillis() - battleCryCooldown.get(player))) + " before you can use battlecry again.");
+                player.sendMessage(ChatColor.RED + "You gotta wait another " + getRemainingCooldown(coolDownTime - (System.currentTimeMillis() - RaceManager.battleCryCooldown.get(player))) + " before you can use battlecry again.");
             }
         } else {
-            battleCryCooldown.put(player.getUniqueId(), System.currentTimeMillis());
+            RaceManager.battleCryCooldown.put(player.getUniqueId(), System.currentTimeMillis());
             runBattleCry(player);
         }
     }

@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 
 public class RaceManager {
@@ -17,6 +18,7 @@ public class RaceManager {
     public static Set<Player> humanMap = Sets.newHashSet();
     public static Set<Player> dwarfMap = Sets.newHashSet();
     public static Set<Player> enderbornMap = Sets.newHashSet();
+    public static ConcurrentMap<UUID, Long> battleCryCooldown = Maps.newConcurrentMap();
 
 
     public static void addPlayerToRaceMap(Player p) {
