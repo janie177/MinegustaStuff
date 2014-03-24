@@ -61,8 +61,9 @@ public class RaceCommands implements CommandExecutor {
                         default:
                             sendText(help, p);
                             break;
-                    }
 
+                    }
+                    return true;
                 } else if (args[0].equalsIgnoreCase("List")) {
                     sendText(races, p);
                     return true;
