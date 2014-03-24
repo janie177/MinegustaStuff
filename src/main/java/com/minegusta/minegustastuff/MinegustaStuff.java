@@ -7,6 +7,7 @@ import com.minegusta.minegustastuff.races.FileManager;
 import com.minegusta.minegustastuff.races.RaceManager;
 import com.minegusta.minegustastuff.races.commands.RaceCommands;
 import com.minegusta.minegustastuff.races.recipes.Recipes;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,6 +17,7 @@ public class MinegustaStuff extends JavaPlugin {
     public static MinegustaStuff PLUGIN;
     private static int SAVETASK;
     private static int BOOSTTASK;
+    public static boolean WORLD_GUARD_ENABLED;
 
     @Override
     public void onEnable() {
@@ -34,6 +36,10 @@ public class MinegustaStuff extends JavaPlugin {
 
         SAVETASK = Tasks.startSaveTask();
         BOOSTTASK = Tasks.startBoostCheck();
+
+        //Depends
+        WORLD_GUARD_ENABLED = Bukkit.getPluginManager().isPluginEnabled("WorldGuard") && Bukkit.getPluginManager().getPlugin("WorldGuard") instanceof WorldGuardPlugin;
+
 
         //Register recipes
 

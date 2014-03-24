@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.minegusta.minegustastuff.MinegustaStuff;
 import com.minegusta.minegustastuff.data.ConfigFile;
 import com.minegusta.minegustastuff.races.RaceManager;
+import com.minegusta.minegustastuff.util.WorldGuardManager;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -165,6 +166,9 @@ public class DwarfPower {
     }
 
     public void applyBattleCryBoost() {
+        if (!WorldGuardManager.canBuild(player)) {
+            player.sendMessage(ChatColor.RED + "You cannot use battlecry in a protected region!");
+        }
         if (RaceManager.battleCryCooldown.containsKey(player.getUniqueId())) {
             long coolDownTime = TimeUnit.SECONDS.toMillis(ConfigFile.getDefaultConfig().getInt("battlecry_cooldown"));
             if (System.currentTimeMillis() - RaceManager.battleCryCooldown.get(player.getUniqueId()) >= coolDownTime) {
