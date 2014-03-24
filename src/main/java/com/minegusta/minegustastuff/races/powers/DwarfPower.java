@@ -16,7 +16,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -28,7 +27,7 @@ public class DwarfPower {
 
 //Lists and Maps. -------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    List<ItemStack> itemStackList = Lists.newArrayList(new ItemStack(Material.WOOD_AXE), new ItemStack(Material.DIAMOND_AXE), new ItemStack(Material.GOLD_AXE), new ItemStack(Material.IRON_AXE), new ItemStack(Material.STONE_AXE));
+    List<Material> axeList = Lists.newArrayList(Material.WOOD_AXE, Material.DIAMOND_AXE, Material.GOLD_AXE, Material.IRON_AXE, Material.STONE_AXE);
     ConcurrentMap<String, Long> battleCryCooldown = Maps.newConcurrentMap();
 
 
@@ -120,7 +119,7 @@ public class DwarfPower {
 
     public boolean hasAxe() {
         player = (Player) entity;
-        return itemStackList.contains(player.getItemInHand());
+        return axeList.contains(player.getItemInHand().getType());
     }
 
     public boolean isPlayer() {
@@ -152,7 +151,7 @@ public class DwarfPower {
     }
 
     private boolean isInBattleCryMap() {
-        return battleCryCooldown.containsKey(player.getName());
+        return battleCryCooldown.containsKey(player.getName().toLowerCase());
     }
 
 //Applying boosts. ------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -176,14 +175,14 @@ public class DwarfPower {
     public void applyBattleCryBoost() {
         if (isInBattleCryMap()) {
             long coolDownTime = TimeUnit.SECONDS.toMillis(ConfigFile.getDefaultConfig().getInt("battlecry_cooldown"));
-            if (System.currentTimeMillis() - battleCryCooldown.get(player.getName()) >= coolDownTime) {
-                battleCryCooldown.put(player.getName(), System.currentTimeMillis());
+            if (System.currentTimeMillis() - battleCryCooldown.get(player.getName().toLowerCase()) >= coolDownTime) {
+                battleCryCooldown.put(player.getName().toLowerCase(), System.currentTimeMillis());
                 runBattleCry(player);
             } else {
                 player.sendMessage(ChatColor.RED + "You gotta wait another " + getRemainingCooldown(coolDownTime - (System.currentTimeMillis() - battleCryCooldown.get(player))) + " before you can use battlecry again.");
             }
         } else {
-            battleCryCooldown.put(player.getName(), System.currentTimeMillis());
+            battleCryCooldown.put(player.getName().toLowerCase(), System.currentTimeMillis());
             runBattleCry(player);
         }
     }
