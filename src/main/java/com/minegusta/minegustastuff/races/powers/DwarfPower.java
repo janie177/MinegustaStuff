@@ -128,7 +128,7 @@ public class DwarfPower {
     }
 
     public boolean isDwarf() {
-        return RaceManager.pRaces.containsKey(uuid) && RaceManager.pRaces.get(uuid).equals("dwarf");
+        return RaceManager.pRaces.containsKey(uuid) && RaceManager.pRaces.get(uuid).equalsIgnoreCase("dwarf");
     }
 
     public boolean victimIsLiving() {
@@ -144,7 +144,7 @@ public class DwarfPower {
     }
 
     public boolean isRightClick() {
-        return ((action.equals(Action.LEFT_CLICK_AIR)) || (action.equals(Action.RIGHT_CLICK_BLOCK)));
+        return ((action.equals(Action.RIGHT_CLICK_AIR)) || (action.equals(Action.RIGHT_CLICK_BLOCK)));
     }
 
     public boolean isProjectile() {
@@ -199,7 +199,8 @@ public class DwarfPower {
 //Methods.
 
     private void runBattleCry(Player p) {
-        p.getWorld().spigot().playEffect(p.getLocation(), Effect.VILLAGER_THUNDERCLOUD, 0, 0, 1, 1, 1, 1, 6, 20);
+        p.getWorld().spigot().playEffect(p.getLocation(), Effect.VILLAGER_THUNDERCLOUD, 0, 0, 1, 1, 1, 1, 15, 20);
+        p.sendMessage(ChatColor.RED + "You knock back your enemies!");
         for (Entity e : p.getNearbyEntities(3.0, 3.0, 3.0)) {
             if (!(e instanceof LivingEntity)) return;
             LivingEntity le = (LivingEntity) e;
