@@ -18,39 +18,32 @@ public class DwarfInfect {
     private Inventory i;
     EntityDamageEvent cause;
 
-    private DwarfInfect(EntityDeathEvent e)
-    {
+    private DwarfInfect(EntityDeathEvent e) {
         entity = e.getEntity();
         cause = e.getEntity().getLastDamageCause();
     }
 
-    public static DwarfInfect dwarfInfect(EntityDeathEvent e)
-    {
+    public static DwarfInfect dwarfInfect(EntityDeathEvent e) {
         return new DwarfInfect(e);
     }
 
-    public boolean isHuman()
-    {
-        if (entity instanceof Player && Data.getRace(entity.getUniqueId().toString()).equalsIgnoreCase("human")) {
-            p = (Player) entity;
+    public boolean isHuman() {
+        if (entity instanceof Player && RaceManager.humanMap.contains(entity)) {
             i = p.getInventory();
             return true;
         }
         return false;
     }
 
-    public boolean hasShinyGem()
-    {
+    public boolean hasShinyGem() {
         return i.contains(Recipes.shinyGem());
     }
 
-    public boolean isByLava()
-    {
+    public boolean isByLava() {
         return cause.getCause().equals(EntityDamageEvent.DamageCause.LAVA);
     }
 
-    public void makeDwarf()
-    {
+    public void makeDwarf() {
         Data.setRace(p.getUniqueId().toString(), "dwarf");
         i.remove(Recipes.shinyGem());
         p.updateInventory();
@@ -60,8 +53,7 @@ public class DwarfInfect {
         RaceManager.updateRace(p);
     }
 
-    private void successMessage()
-    {
+    private void successMessage() {
         p.sendMessage(ChatColor.DARK_GREEN + "You are now a dwarf! Diggy Diggy Hole.");
     }
 

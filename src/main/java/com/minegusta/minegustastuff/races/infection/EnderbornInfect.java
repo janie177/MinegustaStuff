@@ -28,7 +28,7 @@ public class EnderbornInfect {
     }
 
     public boolean isHuman() {
-        return Data.getRace(p.getUniqueId().toString()).equalsIgnoreCase("human");
+        return RaceManager.humanMap.contains(p);
     }
 
     public boolean hasEyesOfEnder() {

@@ -19,7 +19,6 @@ public class ElfInfect {
     private ElfInfect(PlayerItemConsumeEvent e) {
         i = e.getItem();
         p = e.getPlayer();
-        race = Data.getRace(p.getUniqueId().toString());
     }
 
     public static ElfInfect elfInfect(PlayerItemConsumeEvent e) {
@@ -27,7 +26,7 @@ public class ElfInfect {
     }
 
     public boolean isHuman() {
-        return race.equalsIgnoreCase("human");
+        return RaceManager.humanMap.contains(p);
     }
 
     public boolean hasLore() {
@@ -35,7 +34,7 @@ public class ElfInfect {
     }
 
     public boolean isVeganStew() {
-        return i.getItemMeta().getLore().toString().toLowerCase().contains("Vegan Stew");
+        return i.getItemMeta().getLore().toString().toLowerCase().contains(ChatColor.GREEN + "Vegan Stew");
     }
 
     public boolean isStew() {

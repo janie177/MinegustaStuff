@@ -144,7 +144,7 @@ public class DwarfPower {
     }
 
     public boolean isRightClick() {
-        return action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK);
+        return ((action.equals(Action.LEFT_CLICK_AIR)) || (action.equals(Action.RIGHT_CLICK_BLOCK)));
     }
 
     public boolean isProjectile() {

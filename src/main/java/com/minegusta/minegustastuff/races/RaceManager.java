@@ -2,6 +2,7 @@ package com.minegusta.minegustastuff.races;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.minegusta.minegustastuff.races.health.HealthManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -78,6 +79,7 @@ public class RaceManager {
         if (dwarfMap.contains(p)) dwarfMap.remove(p);
         if (enderbornMap.contains(p)) enderbornMap.remove(p);
         addPlayerToRaceMap(p);
+        HealthManager.checkPlayerHealth(p, p.getWorld());
     }
 
     private static boolean isInMap(String mojangID) {
