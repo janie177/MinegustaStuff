@@ -33,7 +33,7 @@ public class ElfInfect {
     }
 
     public boolean isVeganStew() {
-        return i.getItemMeta().getLore().toString().toLowerCase().contains(ChatColor.GREEN + "Vegan Stew");
+        return i.getItemMeta().getLore().toString().contains("Vegan Stew");
     }
 
     public void makeElf() {
