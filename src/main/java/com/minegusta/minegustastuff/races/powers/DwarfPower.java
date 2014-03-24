@@ -174,18 +174,19 @@ public class DwarfPower {
     }
 
     public void applyBattleCryBoost() {
-        if (!isInBattleCryMap()) {
-
-            if (event != null) event.setCancelled(true);
-            if (entityEvent != null) entityEvent.setCancelled(true);
+        if (isInBattleCryMap()) {
             player = (Player) entity;
             long coolDownTime = TimeUnit.SECONDS.toMillis(90);
             if (System.currentTimeMillis() - battleCryCooldown.get(player) >= coolDownTime) {
                 runBattleCry(player);
+                if (event != null) event.setCancelled(true);
+                if (entityEvent != null) entityEvent.setCancelled(true);
             } else {
                 player.sendMessage(ChatColor.RED + "You gotta wait another " + getRemainingCooldown(coolDownTime - (System.currentTimeMillis() - battleCryCooldown.get(player))) + " before you can use battlecry again.");
             }
         }
+        if (event != null) event.setCancelled(true);
+        if (entityEvent != null) entityEvent.setCancelled(true);
         runBattleCry(player);
     }
 
