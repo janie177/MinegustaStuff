@@ -2,7 +2,7 @@ package com.minegusta.minegustastuff.races.werepire;
 
 import com.dogonfire.werewolf.API;
 import com.minegusta.minegustastuff.MinegustaStuff;
-import com.minegusta.minegustastuff.races.Data;
+import com.minegusta.minegustastuff.races.RaceManager;
 import com.minegusta.minegustastuff.util.ConsoleUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -17,10 +17,10 @@ public class SupernaturalCheck {
             if (!pass(p.getWorld())) return;
             String name = p.getName();
 
-            if (API.isWerewolf(name) && !Data.getRace(name).equalsIgnoreCase("human")) {
+            if (API.isWerewolf(name) && !RaceManager.humanMap.contains(p)) {
                 ConsoleUtil.command("werewolf toggle " + name);
             }
-            if (isVampire(p) && !Data.getRace(name).equalsIgnoreCase("human")) {
+            if (isVampire(p) && !RaceManager.humanMap.contains(p)) {
                 ConsoleUtil.command("v set v false " + name);
             }
         }

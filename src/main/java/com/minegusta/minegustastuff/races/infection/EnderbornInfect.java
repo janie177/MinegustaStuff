@@ -32,7 +32,7 @@ public class EnderbornInfect {
     }
 
     public boolean hasEyesOfEnder() {
-        return inv.contains(new ItemStack(Material.EYE_OF_ENDER, 10));
+        return inv.containsAtLeast(new ItemStack(Material.EYE_OF_ENDER), 10);
     }
 
     public boolean isSpell() {
@@ -50,7 +50,7 @@ public class EnderbornInfect {
     }
 
     private void removeEyesOfEnder() {
-        p.getInventory().remove(new ItemStack(Material.EYE_OF_ENDER, 10));
+        p.getInventory().removeItem(new ItemStack(Material.EYE_OF_ENDER, 10));
     }
 
     private void sendMessage() {
