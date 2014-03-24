@@ -1,9 +1,11 @@
 package com.minegusta.minegustastuff.races.powers;
 
+import com.minegusta.minegustastuff.MinegustaStuff;
 import com.minegusta.minegustastuff.data.ConfigFile;
 import com.minegusta.minegustastuff.races.RaceManager;
 import org.bukkit.Effect;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -12,6 +14,7 @@ public class PermanentBoosts {
 
     public static void elfBoost() {
         for (Player p : RaceManager.elfMap) {
+            if (!pass(p.getWorld())) return;
             updatePotionEffect(PotionEffectType.SPEED, p, 3 * 20, 0);
             if (isInWater(p)) {
                 updatePotionEffect(PotionEffectType.REGENERATION, p, 3 * 20, 0);
@@ -22,6 +25,7 @@ public class PermanentBoosts {
 
     public static void enderbornBoost() {
         for (Player p : RaceManager.enderbornMap) {
+            if (!pass(p.getWorld())) return;
             if (isInWater(p)) {
                 p.damage(ConfigFile.getDefaultConfig().getDouble("enderborn_water_damage"));
                 updatePotionEffect(PotionEffectType.WEAKNESS, p, 3 * 20, 1);
@@ -31,7 +35,7 @@ public class PermanentBoosts {
 
             if (!p.isSneaking()) return;
             updatePotionEffect(PotionEffectType.INVISIBILITY, p, 3 * 20, 0);
-            p.getWorld().spigot().playEffect(p.getLocation(), Effect.PARTICLE_SMOKE, 0, 0, 1, 0, 1, 0, 25, 25);
+            p.getWorld().spigot().playEffect(p.getLocation(), Effect.PARTICLE_SMOKE, 0, 0, 1, 0, 1, 0, 50, 25);
         }
     }
 
@@ -47,5 +51,9 @@ public class PermanentBoosts {
             }
         }
         p.addPotionEffect(new PotionEffect(effect, duration, amplifier));
+    }
+
+    private static boolean pass(World w) {
+        return MinegustaStuff.worldCheck(w);
     }
 }

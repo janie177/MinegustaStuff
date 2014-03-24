@@ -78,10 +78,9 @@ public class RaceCommands implements CommandExecutor {
                         return true;
                     }
                 }
-            } else {
-                sendText(help, p);
-                return true;
             }
+            sendText(help, p);
+            return true;
         }
         return true;
     }
