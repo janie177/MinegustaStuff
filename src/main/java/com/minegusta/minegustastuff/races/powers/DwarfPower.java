@@ -168,6 +168,7 @@ public class DwarfPower {
     public void applyBattleCryBoost() {
         if (!WorldGuardManager.canPVP(player)) {
             player.sendMessage(ChatColor.RED + "You cannot use battlecry in a protected region!");
+            return;
         }
         if (RaceManager.battleCryCooldown.containsKey(player.getUniqueId())) {
             long coolDownTime = TimeUnit.SECONDS.toMillis(ConfigFile.getDefaultConfig().getInt("battlecry_cooldown"));
