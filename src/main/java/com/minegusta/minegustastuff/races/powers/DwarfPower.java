@@ -176,7 +176,7 @@ public class DwarfPower {
     public void applyBattleCryBoost() {
         if (isInBattleCryMap()) {
             player = (Player) entity;
-            long coolDownTime = TimeUnit.SECONDS.toMillis(90);
+            long coolDownTime = TimeUnit.SECONDS.toMillis(ConfigFile.getDefaultConfig().getInt("battlecry_cooldown"));
             if (System.currentTimeMillis() - battleCryCooldown.get(player) >= coolDownTime) {
                 runBattleCry(player);
                 if (event != null) event.setCancelled(true);

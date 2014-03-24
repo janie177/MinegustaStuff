@@ -6,6 +6,7 @@ worlds:
 dwarf_bonus_damage_axe: 2.0
 dwarf_weakness_arrows: 1.0
 battlecry_power: 2.8
+battlecry_cooldown: 30
 elf_bonus_damage_bow: 1.0
 enderborn_water_damage: 1.0
 cure_message: 'You are now human!'
