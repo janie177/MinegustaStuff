@@ -28,9 +28,12 @@ public class DwarfInfect {
     }
 
     public boolean isHuman() {
-        if (entity instanceof Player && RaceManager.humanMap.contains(entity)) {
-            i = p.getInventory();
-            return true;
+        if (entity instanceof Player) {
+            p = (Player) entity;
+            if (RaceManager.humanMap.contains(p)) {
+                i = p.getInventory();
+                return true;
+            }
         }
         return false;
     }

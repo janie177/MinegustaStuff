@@ -38,7 +38,7 @@ public class PlayerListener implements Listener {
             fruit.applyFoodRegenBoost();
         }
 
-        if (food.isHuman() && food.isStew() && food.hasLore() && food.isVeganStew()) {
+        if (food.isHuman() && food.hasLore() && food.isVeganStew()) {
             food.makeElf();
         }
 

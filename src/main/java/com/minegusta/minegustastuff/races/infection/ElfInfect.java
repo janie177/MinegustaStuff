@@ -4,7 +4,6 @@ import com.minegusta.minegustastuff.races.Data;
 import com.minegusta.minegustastuff.races.RaceManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
@@ -35,10 +34,6 @@ public class ElfInfect {
 
     public boolean isVeganStew() {
         return i.getItemMeta().getLore().toString().toLowerCase().contains(ChatColor.GREEN + "Vegan Stew");
-    }
-
-    public boolean isStew() {
-        return i.getType().equals(Material.MUSHROOM_SOUP);
     }
 
     public void makeElf() {
