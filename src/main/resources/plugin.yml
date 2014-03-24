@@ -1,7 +1,7 @@
 main: com.minegusta.minegustastuff.MinegustaStuff
 author: janie177
 version: ${project.version}
-softdepend: WorldGuard
+softdepend: [WorldGuard]
 name: MinegustaStuff
 commands:
    race:
