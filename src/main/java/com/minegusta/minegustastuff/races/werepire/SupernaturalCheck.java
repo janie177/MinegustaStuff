@@ -1,6 +1,7 @@
 package com.minegusta.minegustastuff.races.werepire;
 
 import com.dogonfire.werewolf.API;
+import com.massivecraft.vampire.entity.UPlayer;
 import com.minegusta.minegustastuff.MinegustaStuff;
 import com.minegusta.minegustastuff.races.RaceManager;
 import com.minegusta.minegustastuff.util.ConsoleUtil;
@@ -27,7 +28,7 @@ public class SupernaturalCheck {
     }
 
     private static boolean isVampire(Player p) {
-        return p.hasPermission("vampire.is.vampire");
+        return UPlayer.get(p).isVampire();
     }
 
     private static boolean pass(World w) {
