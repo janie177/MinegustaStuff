@@ -117,12 +117,17 @@ public class PlayerListener implements Listener {
 
         DwarfPower arrowWeakness = DwarfPower.arrowWeaknesBoost(e);
         ElfPower fireWeakness = ElfPower.fireDamage(e);
+        EnderbornPower fallDamage = EnderbornPower.fallDamageBoost(e);
 
         if (arrowWeakness.isProjectile() && arrowWeakness.isDwarf()) {
             arrowWeakness.applyProjectileWeakness();
         }
         if (fireWeakness.isFireDamage() && fireWeakness.isElf()) {
             fireWeakness.applyFireDamage();
+        }
+
+        if (fallDamage.isPlayer() && fallDamage.isFallDamage()) {
+            fallDamage.cancelFallDamae();
         }
     }
 

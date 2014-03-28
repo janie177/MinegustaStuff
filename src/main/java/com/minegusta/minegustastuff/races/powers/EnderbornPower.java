@@ -10,6 +10,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.Random;
 
@@ -23,6 +24,7 @@ public class EnderbornPower {
     Entity victim;
     Entity damager;
     EntityDamageByEntityEvent event;
+    EntityDamageEvent damageEvent;
 
 //Constructors. ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -34,6 +36,12 @@ public class EnderbornPower {
         victim = entity;
         uuid = entity.getUniqueId().toString();
     }
+
+    private EnderbornPower(EntityDamageEvent e) {
+        entity = e.getEntity();
+        damageEvent = e;
+        uuid = entity.getUniqueId().toString();
+    }
 //getting the class. ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public static EnderbornPower enderPearlDamage(EntityDamageByEntityEvent e) {
@@ -41,6 +49,10 @@ public class EnderbornPower {
     }
 
     public static EnderbornPower bleedBoost(EntityDamageByEntityEvent e) {
+        return new EnderbornPower(e);
+    }
+
+    public static EnderbornPower fallDamageBoost(EntityDamageEvent e) {
         return new EnderbornPower(e);
     }
 
@@ -66,10 +78,18 @@ public class EnderbornPower {
         return victim instanceof LivingEntity;
     }
 
+    public boolean isFallDamage() {
+        return damageEvent.getCause().equals(EntityDamageEvent.DamageCause.FALL);
+    }
+
 //Applying boosts. ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public void cancelPearlDamage() {
         event.setDamage(0);
+    }
+
+    public void cancelFallDamae() {
+        damageEvent.setDamage(0);
     }
 
     public void applyBleedBoost() {
