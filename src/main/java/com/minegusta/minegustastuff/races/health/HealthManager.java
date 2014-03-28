@@ -22,6 +22,9 @@ public class HealthManager {
                 case "elf":
                     setHealthToElf(p);
                     break;
+                case "enderborn":
+                    setHealthToEnderborn(p);
+                    break;
                 default:
                     setHealthToNormal(p);
                     break;
@@ -32,14 +35,19 @@ public class HealthManager {
 
     //Health setters
 
+    private static void setHealthToEnderborn(Player p) {
+        p.setHealthScale(24.0);
+        p.setMaxHealth(24);
+    }
+
     private static void setHealthToElf(Player p) {
-        p.setHealthScale(16.0);
-        p.setMaxHealth(16);
+        p.setHealthScale(24.0);
+        p.setMaxHealth(24);
     }
 
     private static void setHealthToDwarf(Player p) {
-        p.setHealthScale(24.0);
-        p.setMaxHealth(24);
+        p.setHealthScale(28.0);
+        p.setMaxHealth(28);
     }
 
     private static void setHealthToNormal(Player p) {

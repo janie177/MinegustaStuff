@@ -27,7 +27,7 @@ elf:
     - 'Nature will always benefit elves.'
     - 'For example: Elves heal health when in water.'
     - 'When eating fruit, elves regenerate health too.'
-    - 'Elves have a total of 8 health hearts.'
+    - 'Elves have a total of 12 health hearts.'
     - 'Elves cannot stand fire though. They burn twice as fast. Especially wood elves.'
 enderborn:
     - 'Enderborn are assassins from the end-realm.'
@@ -38,12 +38,13 @@ enderborn:
     - 'When throwing enderpearls, they take no damage.'
     - 'Enderborn have sharp nails which can make enemies bleed as well.'
     - 'Though they have a natural weakness for water.'
+    - 'Enderborn have a total of 12 health hearts.'
     - 'In water, they get cannot move fast. They will be vulnerable too.'
     - 'They will even get damage! This counts for rain too.'
 dwarf:
     - 'Small and grumpy. Almost like cats.'
     - 'Dwarves prefer axes in combat, and are quite skilled with them.'
-    - '12 health hearts makes them the race with most hearts.'
+    - '14 health hearts makes them the race with most health.'
     - 'When killing a foe, they gain a temporary adrenaline boost.'
     - 'They can even knock back groups of enemies with their battle cry.'
     - 'This is activated by right clicking with an axe.'
