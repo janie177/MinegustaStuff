@@ -3,21 +3,23 @@ worlds:
     - 'world'
     - 'world_nether'
     - 'world_the_end'
+    - 'donor'
 dwarf_bonus_damage_axe: 2.0
 dwarf_weakness_arrows: 1.0
 battlecry_power: 2.8
 battlecry_cooldown: 30
 elf_bonus_damage_bow: 1.0
 enderborn_water_damage: 1.0
-cure_message: 'You are now human!'
-cure_denied_message: 'You do not have the required items (30 Diamonds).'
+cure_message: 'You are now human again!'
+cure_denied_message: 'You do not have the required items (30 Diamonds and 20 emeralds).'
 human:
     - 'Humans are the default race. They offer normal gameplay.'
     - 'Humans are the only race that can become vampire or werewolf.'
     - 'Humans do not posess special powers nor weaknesses.'
     - 'To become human again, right click an altar.'
-    - 'An altar is an emerald block with 2 diamond blocks beneath.'
-    - 'Transforming back costs an item fee.'
+    - 'An altar is an emerald block with a diamond block on and beneath it.'
+    - 'Transforming back costs an item fee:'
+    - '30 Diamonds and 20 emeralds.
 elf:
     - 'Elves are agile and skilled with bows.'
     - 'They are also very good with animals.'

@@ -84,7 +84,6 @@ public class EnderbornPower {
     private void bleedEntity(LivingEntity bleedingEntity) {
         Random rand = new Random();
         int chance = rand.nextInt(100);
-
         if (chance < 85) return;
         final LivingEntity e = bleedingEntity;
         for (int i = 0; i < 60; i++) {

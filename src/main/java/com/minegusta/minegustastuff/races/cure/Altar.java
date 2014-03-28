@@ -43,10 +43,7 @@ public class Altar {
     }
 
     public boolean hasDiamondBlocks() {
-        if (b.getRelative(BlockFace.DOWN, 1).getType().equals(Material.DIAMOND_BLOCK) && b.getRelative(BlockFace.DOWN, 2).getType().equals(Material.DIAMOND_BLOCK)) {
-            return true;
-        }
-        return false;
+        return (b.getRelative(BlockFace.DOWN, 1).getType().equals(Material.DIAMOND_BLOCK) && b.getRelative(BlockFace.UP, 1).getType().equals(Material.DIAMOND_BLOCK));
     }
 
     public boolean isNotHuman() {

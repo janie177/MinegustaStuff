@@ -17,10 +17,14 @@ public class FileManager {
         try {
             file = new File(p.getDataFolder(), "races.yml");
 
-            if (!file.exists()) {file.createNewFile();}
-        } catch (Exception e) {e.printStackTrace();}
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-            conf = YamlConfiguration.loadConfiguration(file);
+        conf = YamlConfiguration.loadConfiguration(file);
     }
 
     public static void saveFile() {

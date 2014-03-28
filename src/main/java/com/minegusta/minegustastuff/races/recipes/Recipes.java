@@ -18,7 +18,7 @@ public class Recipes {
         dwarfRecipe();
     }
 
-    public static ItemStack shinyGem(){
+    public static ItemStack shinyGem() {
         ItemStack i = new ItemStack(Material.NETHER_STAR, 1);
         ItemMeta meta = i.getItemMeta();
         List<String> lore = Lists.newArrayList();
@@ -39,8 +39,7 @@ public class Recipes {
         i.setItemMeta(meta);
 
 
-        Recipe elfRecipe = new ShapelessRecipe(i)
-        {
+        Recipe elfRecipe = new ShapelessRecipe(i) {
             {
                 addIngredient(3, Material.YELLOW_FLOWER);
                 addIngredient(1, Material.MUSHROOM_SOUP);
@@ -53,10 +52,8 @@ public class Recipes {
         Bukkit.getServer().addRecipe(elfRecipe);
     }
 
-    private static void dwarfRecipe()
-    {
-        Recipe dwarfRecipe = new ShapelessRecipe(shinyGem())
-        {
+    private static void dwarfRecipe() {
+        Recipe dwarfRecipe = new ShapelessRecipe(shinyGem()) {
             {
                 addIngredient(1, Material.NETHER_STAR);
                 addIngredient(3, Material.DIAMOND);

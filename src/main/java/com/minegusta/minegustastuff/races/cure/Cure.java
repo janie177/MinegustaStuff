@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class Cure {
@@ -17,7 +18,8 @@ public class Cure {
         return ConfigFile.getDefaultConfig();
     }
 
-    private static ItemStack i = new ItemStack(Material.DIAMOND);
+    private static ItemStack diamonds = new ItemStack(Material.DIAMOND);
+    private static ItemStack emeralds = new ItemStack(Material.EMERALD);
 
     public static void curePlayer(Player p) {
         String uuid = p.getUniqueId().toString();
@@ -43,11 +45,15 @@ public class Cure {
     }
 
     private static boolean hasItems(Player p) {
-        return p.getInventory().containsAtLeast(i, 30);
+        Inventory inv = p.getInventory();
+        return inv.containsAtLeast(diamonds, 30) && inv.containsAtLeast(emeralds, 20);
     }
 
     private static void removeItems(Player p) {
-        p.getInventory().removeItem(new ItemStack(Material.DIAMOND, 30));
+        Inventory inv = p.getInventory();
+        inv.removeItem(new ItemStack(Material.DIAMOND, 30));
+        inv.removeItem(new ItemStack(Material.EMERALD, 20));
+
         p.updateInventory();
     }
 
