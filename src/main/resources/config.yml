@@ -1,4 +1,4 @@
-default_race: 'Human'
+default_race: 'human'
 worlds:
     - 'world'
     - 'world_nether'

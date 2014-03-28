@@ -13,7 +13,6 @@ public class ElfInfect {
 
     private ItemStack i;
     private Player p;
-    private String race;
 
     private ElfInfect(PlayerItemConsumeEvent e) {
         i = e.getItem();

@@ -14,7 +14,7 @@ public class Data {
     public static String getRace(String mojangID) {
         if (getConfig().getString(mojangID + ".race") != null) {
             return getConfig().getString(mojangID + ".race");
-        } else return defaultRace;
+        } else return defaultRace.toLowerCase();
     }
 
 
