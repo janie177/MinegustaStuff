@@ -126,7 +126,7 @@ public class PlayerListener implements Listener {
             fireWeakness.applyFireDamage();
         }
 
-        if (fallDamage.isPlayer() && fallDamage.isFallDamage()) {
+        if (fallDamage.isPlayer() && fallDamage.entityIsEnderBorn() && fallDamage.isFallDamage()) {
             fallDamage.cancelFallDamae();
         }
     }
