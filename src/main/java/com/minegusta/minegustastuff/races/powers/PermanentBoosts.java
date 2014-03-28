@@ -16,7 +16,7 @@ import org.bukkit.potion.PotionEffectType;
 public class PermanentBoosts {
 
     public static void elfBoost() {
-        for (Player p : RaceManager.elfMap) {
+        for (Player p : RaceManager.elfMap.keySet()) {
             if (!pass(p.getWorld())) return;
             updatePotionEffect(PotionEffectType.SPEED, p, 3 * 20, 0);
             if (isInWater(p)) {
@@ -27,7 +27,7 @@ public class PermanentBoosts {
     }
 
     public static void enderbornBoost() {
-        for (Player p : RaceManager.enderbornMap) {
+        for (Player p : RaceManager.enderbornMap.keySet()) {
             World w = p.getWorld();
             if (!pass(w)) return;
             if (isInWater(p) && canGetDamage(p)) {

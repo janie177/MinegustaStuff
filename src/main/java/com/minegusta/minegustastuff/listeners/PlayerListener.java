@@ -14,6 +14,7 @@ import com.minegusta.minegustastuff.races.powers.EnderbornPower;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -80,7 +81,7 @@ public class PlayerListener implements Listener {
 
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void entityDamageByEntity(EntityDamageByEntityEvent e) {
         World w = e.getEntity().getWorld();
         if (!pass(w)) return;
@@ -99,7 +100,7 @@ public class PlayerListener implements Listener {
             axe.applyAxeBoost();
         }
 
-        if (bleed.damagerIsEndeborn() && bleed.victimIsLiving()) {
+        if (bleed.damagerIsEndeborn() && bleed.victimIsLiving() && bleed.canPVP()) {
             bleed.applyBleedBoost();
         }
 

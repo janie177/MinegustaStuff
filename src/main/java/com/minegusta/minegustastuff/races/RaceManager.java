@@ -1,12 +1,10 @@
 package com.minegusta.minegustastuff.races;
 
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import com.minegusta.minegustastuff.races.health.HealthManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 
@@ -14,10 +12,10 @@ public class RaceManager {
 
     public static ConcurrentMap<String, String> pRaces = Maps.newConcurrentMap();
 
-    public static Set<Player> elfMap = Sets.newHashSet();
-    public static Set<Player> humanMap = Sets.newHashSet();
-    public static Set<Player> dwarfMap = Sets.newHashSet();
-    public static Set<Player> enderbornMap = Sets.newHashSet();
+    public static ConcurrentMap<Player, Boolean> elfMap = Maps.newConcurrentMap();
+    public static ConcurrentMap<Player, Boolean> humanMap = Maps.newConcurrentMap();
+    public static ConcurrentMap<Player, Boolean> dwarfMap = Maps.newConcurrentMap();
+    public static ConcurrentMap<Player, Boolean> enderbornMap = Maps.newConcurrentMap();
     public static ConcurrentMap<UUID, Long> battleCryCooldown = Maps.newConcurrentMap();
 
 
@@ -29,19 +27,20 @@ public class RaceManager {
 
         switch (Data.getRace(mojangID).toLowerCase()) {
             case "human":
-                humanMap.add(p);
+                humanMap.put(p, false);
                 break;
             case "elf":
-                elfMap.add(p);
+                elfMap.put(p, false);
+                ;
                 break;
             case "dwarf":
-                dwarfMap.add(p);
+                dwarfMap.put(p, false);
                 break;
             case "enderborn":
-                enderbornMap.add(p);
+                enderbornMap.put(p, false);
                 break;
             default:
-                humanMap.add(p);
+                humanMap.put(p, false);
                 break;
         }
     }
@@ -76,10 +75,10 @@ public class RaceManager {
     }
 
     public static void updateRace(Player p) {
-        if (humanMap.contains(p)) humanMap.remove(p);
-        if (elfMap.contains(p)) elfMap.remove(p);
-        if (dwarfMap.contains(p)) dwarfMap.remove(p);
-        if (enderbornMap.contains(p)) enderbornMap.remove(p);
+        if (humanMap.containsKey(p)) humanMap.remove(p);
+        if (elfMap.containsKey(p)) elfMap.remove(p);
+        if (dwarfMap.containsKey(p)) dwarfMap.remove(p);
+        if (enderbornMap.containsKey(p)) enderbornMap.remove(p);
         addPlayerToRaceMap(p);
         HealthManager.checkPlayerHealth(p, p.getWorld());
     }

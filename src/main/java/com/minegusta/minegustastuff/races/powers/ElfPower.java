@@ -109,7 +109,7 @@ public class ElfPower {
 
     public boolean arrowIsFiredByElf() {
         arrow = (Arrow) entity;
-        return arrow.getShooter() instanceof Player && RaceManager.elfMap.contains(arrow.getShooter());
+        return arrow.getShooter() instanceof Player && RaceManager.elfMap.containsKey(arrow.getShooter());
     }
 
     public boolean isFruit() {

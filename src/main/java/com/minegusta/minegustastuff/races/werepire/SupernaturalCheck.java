@@ -18,10 +18,10 @@ public class SupernaturalCheck {
             if (!pass(p.getWorld())) return;
             String name = p.getName();
 
-            if (API.isWerewolf(name) && !RaceManager.humanMap.contains(p)) {
+            if (API.isWerewolf(name) && !RaceManager.humanMap.containsKey(p)) {
                 ConsoleUtil.command("werewolf toggle " + name);
             }
-            if (isVampire(p) && !RaceManager.humanMap.contains(p)) {
+            if (isVampire(p) && !RaceManager.humanMap.containsKey(p)) {
                 ConsoleUtil.command("v set v false " + name);
             }
         }

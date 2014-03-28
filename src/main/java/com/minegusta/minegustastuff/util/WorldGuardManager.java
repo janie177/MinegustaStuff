@@ -7,6 +7,7 @@ import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -33,6 +34,11 @@ public class WorldGuardManager {
     public static boolean canPVP(Player p) {
         Location loc = p.getLocation();
         return WorldGuardPlugin.inst().getRegionManager(p.getWorld()).getApplicableRegions(loc).allows(DefaultFlag.PVP);
+    }
+
+    public static boolean canPVP(Entity e) {
+        Location loc = e.getLocation();
+        return WorldGuardPlugin.inst().getRegionManager(e.getWorld()).getApplicableRegions(loc).allows(DefaultFlag.PVP);
     }
 
     public static boolean canGetDamage(Player p) {

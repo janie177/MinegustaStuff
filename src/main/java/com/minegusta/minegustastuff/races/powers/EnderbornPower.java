@@ -2,6 +2,7 @@ package com.minegusta.minegustastuff.races.powers;
 
 import com.minegusta.minegustastuff.MinegustaStuff;
 import com.minegusta.minegustastuff.races.RaceManager;
+import com.minegusta.minegustastuff.util.WorldGuardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
@@ -67,15 +68,19 @@ public class EnderbornPower {
     }
 
     public boolean entityIsEnderBorn() {
-        return entity instanceof Player && RaceManager.enderbornMap.contains(((Player) entity));
+        return entity instanceof Player && RaceManager.enderbornMap.containsKey(((Player) entity));
     }
 
     public boolean damagerIsEndeborn() {
-        return damager instanceof Player && RaceManager.enderbornMap.contains(((Player) damager));
+        return damager instanceof Player && RaceManager.enderbornMap.containsKey(((Player) damager));
     }
 
     public boolean victimIsLiving() {
         return victim instanceof LivingEntity;
+    }
+
+    public boolean canPVP() {
+        return WorldGuardManager.canPVP(victim);
     }
 
     public boolean isFallDamage() {

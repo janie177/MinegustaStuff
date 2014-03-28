@@ -30,7 +30,7 @@ public class DwarfInfect {
     public boolean isHuman() {
         if (entity instanceof Player) {
             p = (Player) entity;
-            if (RaceManager.humanMap.contains(p)) {
+            if (RaceManager.humanMap.containsKey(p)) {
                 i = p.getInventory();
                 return true;
             }
