@@ -92,11 +92,11 @@ public class PlayerListener implements Listener {
         EnderbornPower bleed = EnderbornPower.bleedBoost(e);
         EnderbornPower pearl = EnderbornPower.enderPearlDamage(e);
 
-        if (arrow.isBowDamage() && arrow.arrowIsFiredByElf() && arrow.victimIsLiving()) {
+        if (arrow.isBowDamage() && arrow.arrowIsFiredByElf() && arrow.victimIsLiving() && arrow.canPVP()) {
             arrow.applyBowDamage();
         }
 
-        if (axe.isDwarf() && axe.hasAxe()) {
+        if (axe.isDwarf() && axe.hasAxe() && axe.canPVP()) {
             axe.applyAxeBoost();
         }
 

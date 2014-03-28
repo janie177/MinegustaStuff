@@ -131,6 +131,10 @@ public class DwarfPower {
         return victim instanceof LivingEntity;
     }
 
+    public boolean canPVP() {
+        return WorldGuardManager.canPVP(victim);
+    }
+
     public boolean killerIsPlayer() {
         if (entity instanceof Player) {
             uuid = entity.getUniqueId().toString();

@@ -3,6 +3,7 @@ package com.minegusta.minegustastuff.races.powers;
 import com.google.common.collect.Lists;
 import com.minegusta.minegustastuff.data.ConfigFile;
 import com.minegusta.minegustastuff.races.RaceManager;
+import com.minegusta.minegustastuff.util.WorldGuardManager;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -101,6 +102,10 @@ public class ElfPower {
 
     public boolean victimIsLiving() {
         return victim instanceof LivingEntity;
+    }
+
+    public boolean canPVP() {
+        return WorldGuardManager.canPVP(victim);
     }
 
     public boolean isBowDamage() {
