@@ -55,11 +55,11 @@ public class EnderbornPower {
     }
 
     public boolean entityIsEnderBorn() {
-        return RaceManager.pRaces.containsKey(uuid) && RaceManager.pRaces.get(uuid).equals("enderborn");
+        return entity instanceof Player && RaceManager.enderbornMap.contains(((Player) entity));
     }
 
     public boolean damagerIsEndeborn() {
-        return RaceManager.pRaces.containsKey(damager.getUniqueId().toString()) && RaceManager.pRaces.get(damager.getUniqueId().toString()).equals("enderborn");
+        return damager instanceof Player && RaceManager.enderbornMap.contains(((Player) damager));
     }
 
     public boolean victimIsLiving() {

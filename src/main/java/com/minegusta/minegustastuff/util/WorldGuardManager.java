@@ -35,6 +35,11 @@ public class WorldGuardManager {
         return WorldGuardPlugin.inst().getRegionManager(p.getWorld()).getApplicableRegions(loc).allows(DefaultFlag.PVP);
     }
 
+    public static boolean canGetDamage(Player p) {
+        Location loc = p.getLocation();
+        return !(WorldGuardPlugin.inst().getRegionManager(p.getWorld()).getApplicableRegions(loc).allows(DefaultFlag.INVINCIBILITY));
+    }
+
     public static ArrayList<String> getRegionNames(Location location) {
         ApplicableRegionSet regions = WorldGuardPlugin.inst().getGlobalRegionManager().get(location.getWorld()).getApplicableRegions(location);
         String regionName = "nothing";

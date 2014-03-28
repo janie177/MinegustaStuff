@@ -3,6 +3,7 @@ package com.minegusta.minegustastuff.races.powers;
 import com.minegusta.minegustastuff.MinegustaStuff;
 import com.minegusta.minegustastuff.data.ConfigFile;
 import com.minegusta.minegustastuff.races.RaceManager;
+import com.minegusta.minegustastuff.util.WorldGuardManager;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -29,7 +30,7 @@ public class PermanentBoosts {
         for (Player p : RaceManager.enderbornMap) {
             World w = p.getWorld();
             if (!pass(w)) return;
-            if (isInWater(p)) {
+            if (isInWater(p) && canGetDamage(p)) {
                 p.damage(ConfigFile.getDefaultConfig().getDouble("enderborn_water_damage"));
                 updatePotionEffect(PotionEffectType.WEAKNESS, p, 3 * 20, 1);
                 updatePotionEffect(PotionEffectType.SLOW, p, 3 * 20, 1);
@@ -40,7 +41,7 @@ public class PermanentBoosts {
             final int x = loc.getBlockX();
             final int z = loc.getBlockZ();
 
-            if (isRaining(w) && isNotInDesert(x, z, w) && inInRain(w, x, z, loc)) {
+            if (isRaining(w) && canGetDamage(p) & inInRain(w, x, z, loc) && isNotInDesert(x, z, w)) {
                 p.damage(ConfigFile.getDefaultConfig().getDouble("enderborn_water_damage"));
                 updatePotionEffect(PotionEffectType.WEAKNESS, p, 3 * 20, 1);
                 updatePotionEffect(PotionEffectType.SLOW, p, 3 * 20, 1);
@@ -77,12 +78,18 @@ public class PermanentBoosts {
 
     private static boolean inInRain(World w, int x, int z, Location loc) {
 
-        return w.getHighestBlockYAt(x, z) > loc.getBlockY();
+        return !(w.getHighestBlockYAt(x, z) > loc.getBlockY());
     }
 
     private static boolean isNotInDesert(int x, int z, World w) {
         Biome b = w.getBiome(x, z);
         return !b.equals(Biome.DESERT) && !b.equals(Biome.DESERT_HILLS) && !b.equals(Biome.DESERT_MOUNTAINS);
     }
+
+    private static boolean canGetDamage(Player p) {
+        return WorldGuardManager.canGetDamage(p);
+    }
+
+
 }
 
