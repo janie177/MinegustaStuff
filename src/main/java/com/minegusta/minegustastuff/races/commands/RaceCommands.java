@@ -3,6 +3,7 @@ package com.minegusta.minegustastuff.races.commands;
 import com.google.common.collect.Lists;
 import com.minegusta.minegustastuff.data.ConfigFile;
 import com.minegusta.minegustastuff.races.Data;
+import com.minegusta.minegustastuff.races.RaceManager;
 import com.minegusta.minegustastuff.races.Races;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -12,6 +13,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentMap;
 
 public class RaceCommands implements CommandExecutor {
 
@@ -70,6 +72,9 @@ public class RaceCommands implements CommandExecutor {
                 } else if (args[0].equalsIgnoreCase("Cure")) {
                     sendText(humanInfect, p);
                     return true;
+                } else if (args[0].equalsIgnoreCase("show")) {
+                    p.sendMessage(ChatColor.YELLOW + "You are currently a: " + showRace(p));
+                    return true;
                 } else if (args[0].equalsIgnoreCase("Info")) {
                     if (args.length == 1) {
                         sendText(getRaceInfo(Data.getRace(p.getUniqueId().toString())), p);
@@ -103,5 +108,29 @@ public class RaceCommands implements CommandExecutor {
             }
         }
         return false;
+    }
+
+    private String showRace(Player p) {
+        if (getElfMap().containsKey(p)) return "Elf.";
+        if (getDwarfMap().containsKey(p)) return "Dwarf.";
+        if (getEnderbornMap().containsKey(p)) return "Enderborn.";
+        if (getHumanMap().containsKey(p)) return "Human.";
+        return "None, not even Human?!? This is a bug!!! Report it to Jan!!!!";
+    }
+
+    private ConcurrentMap getElfMap() {
+        return RaceManager.elfMap;
+    }
+
+    private ConcurrentMap getHumanMap() {
+        return RaceManager.humanMap;
+    }
+
+    private ConcurrentMap getDwarfMap() {
+        return RaceManager.dwarfMap;
+    }
+
+    private ConcurrentMap getEnderbornMap() {
+        return RaceManager.enderbornMap;
     }
 }

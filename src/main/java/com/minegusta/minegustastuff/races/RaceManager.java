@@ -31,7 +31,6 @@ public class RaceManager {
                 break;
             case "elf":
                 elfMap.put(p, false);
-                ;
                 break;
             case "dwarf":
                 dwarfMap.put(p, false);
