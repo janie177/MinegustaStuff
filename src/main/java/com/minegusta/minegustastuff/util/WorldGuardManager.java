@@ -8,6 +8,7 @@ import com.sk89q.worldguard.protection.flags.DefaultFlag;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class WorldGuardManager {
     }
 
     public static boolean canPVP(Entity e) {
+        if (!(e instanceof LivingEntity)) return false;
         Location loc = e.getLocation();
         return WorldGuardPlugin.inst().getRegionManager(e.getWorld()).getApplicableRegions(loc).allows(DefaultFlag.PVP);
     }
