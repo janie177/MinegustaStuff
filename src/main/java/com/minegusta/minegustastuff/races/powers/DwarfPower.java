@@ -127,10 +127,6 @@ public class DwarfPower {
         return RaceManager.pRaces.containsKey(uuid) && RaceManager.pRaces.get(uuid).equalsIgnoreCase("dwarf");
     }
 
-    public boolean victimIsLiving() {
-        return victim instanceof LivingEntity;
-    }
-
     public boolean canPVP() {
         return WorldGuardManager.canPVP(victim);
     }

@@ -24,7 +24,7 @@ public class ElfInfect {
     }
 
     public boolean isHuman() {
-        return RaceManager.humanMap.containsKey(p);
+        return RaceManager.humanMap.containsKey(p.getName());
     }
 
     public boolean hasLore() {

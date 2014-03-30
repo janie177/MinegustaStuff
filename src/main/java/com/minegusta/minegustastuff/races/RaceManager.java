@@ -12,10 +12,10 @@ public class RaceManager {
 
     public static ConcurrentMap<String, String> pRaces = Maps.newConcurrentMap();
 
-    public static ConcurrentMap<Player, Boolean> elfMap = Maps.newConcurrentMap();
-    public static ConcurrentMap<Player, Boolean> humanMap = Maps.newConcurrentMap();
-    public static ConcurrentMap<Player, Boolean> dwarfMap = Maps.newConcurrentMap();
-    public static ConcurrentMap<Player, Boolean> enderbornMap = Maps.newConcurrentMap();
+    public static ConcurrentMap<String, Boolean> elfMap = Maps.newConcurrentMap();
+    public static ConcurrentMap<String, Boolean> humanMap = Maps.newConcurrentMap();
+    public static ConcurrentMap<String, Boolean> dwarfMap = Maps.newConcurrentMap();
+    public static ConcurrentMap<String, Boolean> enderbornMap = Maps.newConcurrentMap();
     public static ConcurrentMap<UUID, Long> battleCryCooldown = Maps.newConcurrentMap();
 
 
@@ -27,19 +27,19 @@ public class RaceManager {
 
         switch (Data.getRace(mojangID).toLowerCase()) {
             case "human":
-                humanMap.put(p, false);
+                humanMap.put(p.getName(), false);
                 break;
             case "elf":
-                elfMap.put(p, false);
+                elfMap.put(p.getName(), false);
                 break;
             case "dwarf":
-                dwarfMap.put(p, false);
+                dwarfMap.put(p.getName(), false);
                 break;
             case "enderborn":
-                enderbornMap.put(p, false);
+                enderbornMap.put(p.getName(), false);
                 break;
             default:
-                humanMap.put(p, false);
+                humanMap.put(p.getName(), false);
                 break;
         }
     }
@@ -55,29 +55,29 @@ public class RaceManager {
             switch (Data.getRace(mojangID)) {
 
                 case "human":
-                    humanMap.remove(p);
+                    humanMap.remove(p.getName());
                     break;
                 case "elf":
-                    elfMap.remove(p);
+                    elfMap.remove(p.getName());
                     break;
                 case "dwarf":
-                    dwarfMap.remove(p);
+                    dwarfMap.remove(p.getName());
                     break;
                 case "enderborn":
-                    enderbornMap.remove(p);
+                    enderbornMap.remove(p.getName());
                     break;
                 default:
-                    humanMap.remove(p);
+                    humanMap.remove(p.getName());
                     break;
             }
         }
     }
 
     public static void updateRace(Player p) {
-        if (humanMap.containsKey(p)) humanMap.remove(p);
-        if (elfMap.containsKey(p)) elfMap.remove(p);
-        if (dwarfMap.containsKey(p)) dwarfMap.remove(p);
-        if (enderbornMap.containsKey(p)) enderbornMap.remove(p);
+        if (humanMap.containsKey(p.getName())) humanMap.remove(p.getName());
+        if (elfMap.containsKey(p.getName())) elfMap.remove(p.getName());
+        if (dwarfMap.containsKey(p.getName())) dwarfMap.remove(p.getName());
+        if (enderbornMap.containsKey(p.getName())) enderbornMap.remove(p.getName());
         addPlayerToRaceMap(p);
         HealthManager.checkPlayerHealth(p, p.getWorld());
     }

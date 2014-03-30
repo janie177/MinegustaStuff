@@ -18,7 +18,9 @@ import java.util.concurrent.ConcurrentMap;
 public class PermanentBoosts {
 
     public static void elfBoost() {
-        for (Player p : getElfMap().keySet()) {
+        for (String name : getElfMap().keySet()) {
+            if (getPlayerFromName(name) == null) return;
+            Player p = getPlayerFromName(name);
             if (!pass(p.getWorld())) return;
             updatePotionEffect(PotionEffectType.SPEED, p, 3 * 20, 0);
             if (isInWater(p)) {
@@ -29,7 +31,10 @@ public class PermanentBoosts {
     }
 
     public static void enderbornBoost() {
-        for (Player p : getEnderbornMap().keySet()) {
+        for (String name : getEnderbornMap().keySet()) {
+            if (getPlayerFromName(name) == null) return;
+            Player p = getPlayerFromName(name);
+
             World w = p.getWorld();
             if (!pass(w)) return;
             if (isInWater(p) && canGetDamage(p)) {
@@ -96,11 +101,15 @@ public class PermanentBoosts {
         return WorldGuardManager.canGetDamage(p);
     }
 
-    private static ConcurrentMap<Player, Boolean> getElfMap() {
+    private static Player getPlayerFromName(String playerName) {
+        return MinegustaStuff.PLUGIN.getServer().getPlayer(playerName);
+    }
+
+    private static ConcurrentMap<String, Boolean> getElfMap() {
         return RaceManager.elfMap;
     }
 
-    private static ConcurrentMap<Player, Boolean> getEnderbornMap() {
+    private static ConcurrentMap<String, Boolean> getEnderbornMap() {
         return RaceManager.enderbornMap;
     }
 }

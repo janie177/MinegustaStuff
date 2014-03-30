@@ -21,6 +21,7 @@ public class EnderbornPower {
 //Variables. ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     Entity entity;
+    Player p;
     String uuid;
     Entity victim;
     Entity damager;
@@ -68,11 +69,19 @@ public class EnderbornPower {
     }
 
     public boolean entityIsEnderBorn() {
-        return entity instanceof Player && RaceManager.enderbornMap.containsKey(((Player) entity));
+        if (entity instanceof Player) {
+            p = (Player) entity;
+            return RaceManager.enderbornMap.containsKey(p.getName());
+        }
+        return false;
     }
 
     public boolean damagerIsEndeborn() {
-        return damager instanceof Player && RaceManager.enderbornMap.containsKey(((Player) damager));
+        if (damager instanceof Player) {
+            p = (Player) damager;
+            return RaceManager.enderbornMap.containsKey(p.getName());
+        }
+        return false;
     }
 
     public boolean victimIsLiving() {
