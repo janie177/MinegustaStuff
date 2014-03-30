@@ -111,10 +111,10 @@ public class RaceCommands implements CommandExecutor {
     }
 
     private String showRace(Player p) {
-        if (getElfMap().containsKey(p)) return "Elf.";
-        if (getDwarfMap().containsKey(p)) return "Dwarf.";
-        if (getEnderbornMap().containsKey(p)) return "Enderborn.";
-        if (getHumanMap().containsKey(p)) return "Human.";
+        if (getElfMap().containsKey(p.getName())) return "Elf.";
+        if (getDwarfMap().containsKey(p.getName())) return "Dwarf.";
+        if (getEnderbornMap().containsKey(p.getName())) return "Enderborn.";
+        if (getHumanMap().containsKey(p.getName())) return "Human.";
         return "None, not even Human?!? This is a bug!!! Report it to Jan!!!!";
     }
 
