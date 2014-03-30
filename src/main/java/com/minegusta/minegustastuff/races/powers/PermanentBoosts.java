@@ -13,10 +13,21 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.concurrent.ConcurrentMap;
+
 public class PermanentBoosts {
 
+
+    private static ConcurrentMap<Player, Boolean> getElfMap() {
+        return RaceManager.elfMap;
+    }
+
+    private static ConcurrentMap<Player, Boolean> getEnderbornMap() {
+        return RaceManager.enderbornMap;
+    }
+
     public static void elfBoost() {
-        for (Player p : RaceManager.elfMap.keySet()) {
+        for (Player p : getElfMap().keySet()) {
             if (!pass(p.getWorld())) return;
             updatePotionEffect(PotionEffectType.SPEED, p, 3 * 20, 0);
             if (isInWater(p)) {
@@ -27,7 +38,7 @@ public class PermanentBoosts {
     }
 
     public static void enderbornBoost() {
-        for (Player p : RaceManager.enderbornMap.keySet()) {
+        for (Player p : getEnderbornMap().keySet()) {
             World w = p.getWorld();
             if (!pass(w)) return;
             if (isInWater(p) && canGetDamage(p)) {
@@ -89,7 +100,5 @@ public class PermanentBoosts {
     private static boolean canGetDamage(Player p) {
         return WorldGuardManager.canGetDamage(p);
     }
-
-
 }
 
