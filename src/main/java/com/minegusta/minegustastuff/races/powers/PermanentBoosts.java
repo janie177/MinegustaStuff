@@ -17,15 +17,6 @@ import java.util.concurrent.ConcurrentMap;
 
 public class PermanentBoosts {
 
-
-    private static ConcurrentMap<Player, Boolean> getElfMap() {
-        return RaceManager.elfMap;
-    }
-
-    private static ConcurrentMap<Player, Boolean> getEnderbornMap() {
-        return RaceManager.enderbornMap;
-    }
-
     public static void elfBoost() {
         for (Player p : getElfMap().keySet()) {
             if (!pass(p.getWorld())) return;
@@ -42,7 +33,7 @@ public class PermanentBoosts {
             World w = p.getWorld();
             if (!pass(w)) return;
             if (isInWater(p) && canGetDamage(p)) {
-                p.damage(ConfigFile.getDefaultConfig().getDouble("enderborn_water_damage"));
+                p.damage(getEnderbornWaterDamage());
                 updatePotionEffect(PotionEffectType.WEAKNESS, p, 3 * 20, 1);
                 updatePotionEffect(PotionEffectType.SLOW, p, 3 * 20, 1);
             }
@@ -53,7 +44,7 @@ public class PermanentBoosts {
             final int z = loc.getBlockZ();
 
             if (isRaining(w) && canGetDamage(p) & inInRain(w, x, z, loc) && isNotInDesert(x, z, w)) {
-                p.damage(ConfigFile.getDefaultConfig().getDouble("enderborn_water_damage"));
+                p.damage(getEnderbornWaterDamage());
                 updatePotionEffect(PotionEffectType.WEAKNESS, p, 3 * 20, 1);
                 updatePotionEffect(PotionEffectType.SLOW, p, 3 * 20, 1);
             }
@@ -79,6 +70,10 @@ public class PermanentBoosts {
         p.addPotionEffect(new PotionEffect(effect, duration, amplifier));
     }
 
+    private static double getEnderbornWaterDamage() {
+        return ConfigFile.getDefaultConfig().getDouble("enderborn_water_damage");
+    }
+
     private static boolean pass(World w) {
         return MinegustaStuff.worldCheck(w);
     }
@@ -99,6 +94,14 @@ public class PermanentBoosts {
 
     private static boolean canGetDamage(Player p) {
         return WorldGuardManager.canGetDamage(p);
+    }
+
+    private static ConcurrentMap<Player, Boolean> getElfMap() {
+        return RaceManager.elfMap;
+    }
+
+    private static ConcurrentMap<Player, Boolean> getEnderbornMap() {
+        return RaceManager.enderbornMap;
     }
 }
 
