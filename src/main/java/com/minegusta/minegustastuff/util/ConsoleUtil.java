@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 
 public class ConsoleUtil
 {
-
 	private ConsoleUtil()
 	{
 	}

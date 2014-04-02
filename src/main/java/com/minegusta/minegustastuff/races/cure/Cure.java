@@ -1,31 +1,25 @@
 package com.minegusta.minegustastuff.races.cure;
 
-import com.minegusta.minegustastuff.data.ConfigFile;
+import com.minegusta.minegustastuff.Minegusta;
 import com.minegusta.minegustastuff.races.Data;
 import com.minegusta.minegustastuff.races.RaceManager;
+import com.minegusta.minegustastuff.util.MojangIdProvider;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class Cure
 {
-
-	private static FileConfiguration getConfig()
-	{
-		return ConfigFile.getDefaultConfig();
-	}
-
 	private static ItemStack diamonds = new ItemStack(Material.DIAMOND);
 	private static ItemStack emeralds = new ItemStack(Material.EMERALD);
 
 	public static void curePlayer(Player p)
 	{
-		String uuid = p.getUniqueId().toString();
+		String uuid = MojangIdProvider.getId(p);
 
 		if(!canCure(uuid))
 		{
@@ -56,6 +50,7 @@ public class Cure
 		return inv.containsAtLeast(diamonds, 30) && inv.containsAtLeast(emeralds, 20);
 	}
 
+	@SuppressWarnings("deprecation")
 	private static void removeItems(Player p)
 	{
 		Inventory inv = p.getInventory();
@@ -67,13 +62,11 @@ public class Cure
 
 	private static String cureMessage()
 	{
-		return ChatColor.GREEN + getConfig().getString("cure_message");
+		return ChatColor.GREEN + Minegusta.getConfig().getString("cure_message");
 	}
 
 	private static String deniedMessage()
 	{
-		return ChatColor.DARK_RED + getConfig().getString("cure_denied_message");
+		return ChatColor.DARK_RED + Minegusta.getConfig().getString("cure_denied_message");
 	}
-
-
 }

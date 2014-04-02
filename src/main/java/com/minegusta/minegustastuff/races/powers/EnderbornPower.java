@@ -1,7 +1,8 @@
 package com.minegusta.minegustastuff.races.powers;
 
-import com.minegusta.minegustastuff.MinegustaStuff;
-import com.minegusta.minegustastuff.races.RaceManager;
+import com.minegusta.minegustastuff.Minegusta;
+import com.minegusta.minegustastuff.races.Data;
+import com.minegusta.minegustastuff.util.MojangIdProvider;
 import com.minegusta.minegustastuff.util.WorldGuardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,7 +18,6 @@ import java.util.Random;
 
 public class EnderbornPower
 {
-
 	//Variables. ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	Entity entity;
@@ -29,7 +29,6 @@ public class EnderbornPower
 	EntityDamageEvent damageEvent;
 
 	//Constructors. ---------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 	private EnderbornPower(EntityDamageByEntityEvent e)
 	{
@@ -80,7 +79,7 @@ public class EnderbornPower
 		if(entity instanceof Player)
 		{
 			p = (Player) entity;
-			return RaceManager.enderbornMap.containsKey(p.getName());
+			return "enderborn".equals(Data.getRace(MojangIdProvider.getId(p)));
 		}
 		return false;
 	}
@@ -90,7 +89,7 @@ public class EnderbornPower
 		if(damager instanceof Player)
 		{
 			p = (Player) damager;
-			return RaceManager.enderbornMap.containsKey(p.getName());
+			return "enderborn".equals(Data.getRace(MojangIdProvider.getId(p)));
 		}
 		return false;
 	}
@@ -140,7 +139,7 @@ public class EnderbornPower
 		for(int i = 0; i < 60; i++)
 		{
 			final int k = i;
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(MinegustaStuff.PLUGIN, new Runnable()
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Minegusta.getPlugin(), new Runnable()
 			{
 				@Override
 				public void run()
@@ -155,12 +154,8 @@ public class EnderbornPower
 					if(k == 20) e.damage(d);
 					if(k == 40) e.damage(d);
 					if(k == 59) e.damage(d);
-
-
 				}
 			}, i);
 		}
 	}
 }
-
-

@@ -1,8 +1,10 @@
 package com.minegusta.minegustastuff.races.powers;
 
 import com.google.common.collect.Lists;
-import com.minegusta.minegustastuff.data.ConfigFile;
+import com.minegusta.minegustastuff.Minegusta;
+import com.minegusta.minegustastuff.races.Data;
 import com.minegusta.minegustastuff.races.RaceManager;
+import com.minegusta.minegustastuff.util.MojangIdProvider;
 import com.minegusta.minegustastuff.util.WorldGuardManager;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
@@ -15,7 +17,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.spigotmc.event.entity.EntityMountEvent;
 
 import java.util.List;
-
 
 public class ElfPower
 {
@@ -132,7 +133,7 @@ public class ElfPower
 		if(arrow.getShooter() instanceof Player)
 		{
 			Player p = (Player) arrow.getShooter();
-			return RaceManager.elfMap.containsKey(p.getName());
+			return "elf".equals(Data.getRace(MojangIdProvider.getId(p)));
 		}
 		return false;
 	}
@@ -157,7 +158,7 @@ public class ElfPower
 	public void applyBowDamage()
 	{
 		livingVictim = (LivingEntity) victim;
-		livingVictim.damage(ConfigFile.getDefaultConfig().getDouble("elf_bonus_damage_bow"));
+		livingVictim.damage(Minegusta.getConfig().getDouble("elf_bonus_damage_bow"));
 	}
 
 	public void applyFoodRegenBoost()
@@ -172,5 +173,4 @@ public class ElfPower
 		player = (Player) entity;
 		player.damage(damage);
 	}
-
 }

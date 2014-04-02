@@ -9,7 +9,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ArmourManager
 {
-
 	public static ConcurrentHashMap<UUID, String> armourMap = new ConcurrentHashMap<>();
 
 	public static boolean hasSet(Player p, String lore)

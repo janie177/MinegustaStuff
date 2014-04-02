@@ -1,7 +1,8 @@
 package com.minegusta.minegustastuff.races.powers;
 
-import com.minegusta.minegustastuff.MinegustaStuff;
-import com.minegusta.minegustastuff.data.ConfigFile;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.minegusta.minegustastuff.Minegusta;
 import com.minegusta.minegustastuff.races.RaceManager;
 import com.minegusta.minegustastuff.util.WorldGuardManager;
 import org.bukkit.Effect;
@@ -13,14 +14,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.concurrent.ConcurrentMap;
+import java.util.Collection;
 
 public class PermanentBoosts
 {
 
 	public static void elfBoost()
 	{
-		for(String name : getElfMap().keySet())
+		for(String name : getElves())
 		{
 			if(getPlayerFromName(name) == null) return;
 			Player p = getPlayerFromName(name);
@@ -36,7 +37,7 @@ public class PermanentBoosts
 
 	public static void enderbornBoost()
 	{
-		for(String name : getEnderbornMap().keySet())
+		for(String name : getEnderborn())
 		{
 			if(getPlayerFromName(name) == null) return;
 			Player p = getPlayerFromName(name);
@@ -90,12 +91,12 @@ public class PermanentBoosts
 
 	private static double getEnderbornWaterDamage()
 	{
-		return ConfigFile.getDefaultConfig().getDouble("enderborn_water_damage");
+		return Minegusta.getConfig().getDouble("enderborn_water_damage");
 	}
 
 	private static boolean pass(World w)
 	{
-		return MinegustaStuff.worldCheck(w);
+		return Minegusta.getServer().containsWorld(w);
 	}
 
 	private static boolean isRaining(World w)
@@ -122,17 +123,31 @@ public class PermanentBoosts
 
 	private static Player getPlayerFromName(String playerName)
 	{
-		return MinegustaStuff.PLUGIN.getServer().getPlayer(playerName);
+		return Minegusta.getPlugin().getServer().getPlayer(playerName);
 	}
 
-	private static ConcurrentMap<String, Boolean> getElfMap()
+	private static Collection<String> getElves()
 	{
-		return RaceManager.elfMap;
+		return Collections2.filter(RaceManager.pRaces.keySet(), new Predicate<String>()
+		{
+			@Override
+			public boolean apply(String s)
+			{
+				return "elf".equals(RaceManager.pRaces.get(s));
+			}
+		});
 	}
 
-	private static ConcurrentMap<String, Boolean> getEnderbornMap()
+	private static Collection<String> getEnderborn()
 	{
-		return RaceManager.enderbornMap;
+		return Collections2.filter(RaceManager.pRaces.keySet(), new Predicate<String>()
+		{
+			@Override
+			public boolean apply(String s)
+			{
+				return "enderborn".equals(RaceManager.pRaces.get(s));
+			}
+		});
 	}
 }
 

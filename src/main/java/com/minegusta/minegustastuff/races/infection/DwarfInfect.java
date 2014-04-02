@@ -3,6 +3,7 @@ package com.minegusta.minegustastuff.races.infection;
 import com.minegusta.minegustastuff.races.Data;
 import com.minegusta.minegustastuff.races.RaceManager;
 import com.minegusta.minegustastuff.races.recipes.Recipes;
+import com.minegusta.minegustastuff.util.MojangIdProvider;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Sound;
@@ -35,7 +36,7 @@ public class DwarfInfect
 		if(entity instanceof Player)
 		{
 			p = (Player) entity;
-			if(RaceManager.humanMap.containsKey(p.getName()))
+			if("human".equals(Data.getRace(MojangIdProvider.getId(p))))
 			{
 				i = p.getInventory();
 				return true;
@@ -54,9 +55,10 @@ public class DwarfInfect
 		return cause.getCause().equals(EntityDamageEvent.DamageCause.LAVA);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void makeDwarf()
 	{
-		Data.setRace(p.getUniqueId().toString(), "dwarf");
+		Data.setRace(MojangIdProvider.getId(p), "dwarf");
 		i.remove(Recipes.shinyGem());
 		p.updateInventory();
 		successMessage();
@@ -69,6 +71,4 @@ public class DwarfInfect
 	{
 		p.sendMessage(ChatColor.DARK_GREEN + "You are now a dwarf! Diggy Diggy Hole.");
 	}
-
-
 }

@@ -1,6 +1,7 @@
 package com.minegusta.minegustastuff.races.cure;
 
 import com.minegusta.minegustastuff.races.Data;
+import com.minegusta.minegustastuff.util.MojangIdProvider;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -18,11 +19,10 @@ public class Altar
 	private static Action a;
 	private PlayerInteractEvent event;
 
-
 	private Altar(PlayerInteractEvent e)
 	{
 		p = e.getPlayer();
-		race = Data.getRace(p.getUniqueId().toString());
+		race = Data.getRace(MojangIdProvider.getId(p));
 		b = e.getClickedBlock();
 		a = e.getAction();
 		event = e;

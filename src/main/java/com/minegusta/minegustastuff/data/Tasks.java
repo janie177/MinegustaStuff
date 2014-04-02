@@ -1,23 +1,22 @@
 package com.minegusta.minegustastuff.data;
 
-import com.minegusta.minegustastuff.MinegustaStuff;
-import com.minegusta.minegustastuff.races.FileManager;
+import com.minegusta.minegustastuff.Minegusta;
 import com.minegusta.minegustastuff.races.powers.PermanentBoosts;
 import com.minegusta.minegustastuff.races.werepire.SupernaturalCheck;
 import org.bukkit.Bukkit;
 
 public class Tasks
 {
-
 	public static int startSaveTask()
 	{
-		return Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(MinegustaStuff.PLUGIN, new Runnable()
+		return Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Minegusta.getPlugin(), new Runnable()
 		{
 			@Override
 			public void run()
 			{
-				FileManager.saveFile();
-				ConfigFile.save();
+				for(SaveFile file : SaveFile.files())
+					file.save();
+				Minegusta.getServer().saveConfig();
 				SupernaturalCheck.supernaturalCheck();
 			}
 		}, 0, 20 * 60);
@@ -25,15 +24,13 @@ public class Tasks
 
 	public static int startBoostCheck()
 	{
-		return Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(MinegustaStuff.PLUGIN, new Runnable()
+		return Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Minegusta.getPlugin(), new Runnable()
 		{
 			@Override
 			public void run()
 			{
-
 				PermanentBoosts.elfBoost();
 				PermanentBoosts.enderbornBoost();
-
 			}
 		}, 0, 20);
 	}

@@ -1,9 +1,9 @@
 package com.minegusta.minegustastuff.races.powers;
 
 import com.google.common.collect.Lists;
-import com.minegusta.minegustastuff.MinegustaStuff;
-import com.minegusta.minegustastuff.data.ConfigFile;
+import com.minegusta.minegustastuff.Minegusta;
 import com.minegusta.minegustastuff.races.RaceManager;
+import com.minegusta.minegustastuff.util.MojangIdProvider;
 import com.minegusta.minegustastuff.util.WorldGuardManager;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
@@ -24,7 +24,6 @@ import java.util.concurrent.TimeUnit;
 
 public class DwarfPower
 {
-
 	//Lists and Maps. -------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	List<Material> axeList = Lists.newArrayList(Material.WOOD_AXE, Material.DIAMOND_AXE, Material.GOLD_AXE, Material.IRON_AXE, Material.STONE_AXE);
@@ -185,7 +184,7 @@ public class DwarfPower
 	public void applyAxeBoost()
 	{
 		livingVictim = (LivingEntity) victim;
-		livingVictim.damage(ConfigFile.getDefaultConfig().getDouble("dwarf_bonus_damage_axe"));
+		livingVictim.damage(Minegusta.getConfig().getDouble("dwarf_bonus_damage_axe"));
 	}
 
 	public void applyBattleCryBoost()
@@ -194,22 +193,22 @@ public class DwarfPower
 		{
 			player.sendMessage(ChatColor.RED + "You cannot use battlecry in a protected region!");
 		}
-		else if(RaceManager.battleCryCooldown.containsKey(player.getUniqueId()))
+		else if(RaceManager.battleCryCooldown.containsKey(MojangIdProvider.getId(player)))
 		{
-			long coolDownTime = TimeUnit.SECONDS.toMillis(ConfigFile.getDefaultConfig().getInt("battlecry_cooldown"));
-			if(System.currentTimeMillis() - RaceManager.battleCryCooldown.get(player.getUniqueId()) >= coolDownTime)
+			long coolDownTime = TimeUnit.SECONDS.toMillis(Minegusta.getConfig().getInt("battlecry_cooldown"));
+			if(System.currentTimeMillis() - RaceManager.battleCryCooldown.get(MojangIdProvider.getId(player)) >= coolDownTime)
 			{
-				RaceManager.battleCryCooldown.put(player.getUniqueId(), System.currentTimeMillis());
+				RaceManager.battleCryCooldown.put(MojangIdProvider.getId(player), System.currentTimeMillis());
 				runBattleCry(player);
 			}
 			else
 			{
-				player.sendMessage(ChatColor.RED + "You gotta wait another " + getRemainingCooldown(coolDownTime - (System.currentTimeMillis() - RaceManager.battleCryCooldown.get(player.getUniqueId()))) + "before you can use battlecry again.");
+				player.sendMessage(ChatColor.RED + "You gotta wait another " + getRemainingCooldown(coolDownTime - (System.currentTimeMillis() - RaceManager.battleCryCooldown.get(MojangIdProvider.getId(player)))) + "before you can use battlecry again.");
 			}
 		}
 		else
 		{
-			RaceManager.battleCryCooldown.put(player.getUniqueId(), System.currentTimeMillis());
+			RaceManager.battleCryCooldown.put(MojangIdProvider.getId(player), System.currentTimeMillis());
 			runBattleCry(player);
 		}
 	}
@@ -219,7 +218,7 @@ public class DwarfPower
 	public void applyProjectileWeakness()
 	{
 		player = (Player) entity;
-		player.damage(MinegustaStuff.PLUGIN.getConfig().getDouble("dwarf_weakness_arrows"));
+		player.damage(Minegusta.getConfig().getDouble("dwarf_weakness_arrows"));
 	}
 
 	//Methods.
@@ -234,7 +233,7 @@ public class DwarfPower
 			LivingEntity le = (LivingEntity) e;
 			le.getWorld().spigot().playEffect(le.getLocation(), Effect.CRIT, 0, 0, 1, 1, 1, 1, 15, 20);
 			le.getWorld().playSound(le.getLocation(), Sound.ANVIL_USE, 1, 1);
-			le.setVelocity(le.getLocation().toVector().subtract(p.getLocation().toVector()).normalize().multiply(MinegustaStuff.PLUGIN.getConfig().getDouble("battlecry_power")));
+			le.setVelocity(le.getLocation().toVector().subtract(p.getLocation().toVector()).normalize().multiply(Minegusta.getConfig().getDouble("battlecry_power")));
 		}
 	}
 

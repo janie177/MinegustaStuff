@@ -1,10 +1,10 @@
 package com.minegusta.minegustastuff.races.commands;
 
 import com.google.common.collect.Lists;
-import com.minegusta.minegustastuff.data.ConfigFile;
+import com.minegusta.minegustastuff.Minegusta;
 import com.minegusta.minegustastuff.races.Data;
-import com.minegusta.minegustastuff.races.RaceManager;
 import com.minegusta.minegustastuff.races.Races;
+import com.minegusta.minegustastuff.util.MojangIdProvider;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,7 +13,6 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
-import java.util.concurrent.ConcurrentMap;
 
 public class RaceCommands implements CommandExecutor
 {
@@ -34,7 +33,6 @@ public class RaceCommands implements CommandExecutor
 		return Races.RacesList.getRaceInfo(raceName);
 	}
 
-
 	@Override
 	public boolean onCommand(CommandSender s, Command cmd, String label, String[] args)
 	{
@@ -51,7 +49,7 @@ public class RaceCommands implements CommandExecutor
 			{
 				if(args[0].equalsIgnoreCase("reload") && p.isOp())
 				{
-					ConfigFile.reloadConfig();
+					Minegusta.getServer().reloadConfig();
 					sendText(reloaded, p);
 					return true;
 				}
@@ -90,14 +88,14 @@ public class RaceCommands implements CommandExecutor
 				}
 				else if(args[0].equalsIgnoreCase("show"))
 				{
-					p.sendMessage(ChatColor.YELLOW + "You are currently a: " + showRace(p));
+					p.sendMessage(ChatColor.YELLOW + "You are currently a: " + getRaceInfo(Data.getRace(MojangIdProvider.getId(p))));
 					return true;
 				}
 				else if(args[0].equalsIgnoreCase("Info"))
 				{
 					if(args.length == 1)
 					{
-						sendText(getRaceInfo(Data.getRace(p.getUniqueId().toString())), p);
+						sendText(getRaceInfo(Data.getRace(MojangIdProvider.getId(p))), p);
 						return true;
 					}
 					else if(listContainsString(args[1], races))
@@ -137,34 +135,5 @@ public class RaceCommands implements CommandExecutor
 			}
 		}
 		return false;
-	}
-
-	private String showRace(Player p)
-	{
-		if(getElfMap().containsKey(p.getName())) return "Elf.";
-		if(getDwarfMap().containsKey(p.getName())) return "Dwarf.";
-		if(getEnderbornMap().containsKey(p.getName())) return "Enderborn.";
-		if(getHumanMap().containsKey(p.getName())) return "Human.";
-		return "None, not even Human?!? This is a bug!!! Report it to Jan!!!!";
-	}
-
-	private ConcurrentMap getElfMap()
-	{
-		return RaceManager.elfMap;
-	}
-
-	private ConcurrentMap getHumanMap()
-	{
-		return RaceManager.humanMap;
-	}
-
-	private ConcurrentMap getDwarfMap()
-	{
-		return RaceManager.dwarfMap;
-	}
-
-	private ConcurrentMap getEnderbornMap()
-	{
-		return RaceManager.enderbornMap;
 	}
 }

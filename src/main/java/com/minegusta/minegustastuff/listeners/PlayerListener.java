@@ -1,6 +1,6 @@
 package com.minegusta.minegustastuff.listeners;
 
-import com.minegusta.minegustastuff.MinegustaStuff;
+import com.minegusta.minegustastuff.Minegusta;
 import com.minegusta.minegustastuff.races.RaceManager;
 import com.minegusta.minegustastuff.races.cure.Altar;
 import com.minegusta.minegustastuff.races.cure.Cure;
@@ -25,13 +25,10 @@ import org.spigotmc.event.entity.EntityMountEvent;
 
 public class PlayerListener implements Listener
 {
-
-
 	@EventHandler
 	public void playerEatEvent(PlayerItemConsumeEvent e)
 	{
-		World w = e.getPlayer().getWorld();
-		if(!pass(w)) return;
+		if(!Minegusta.getServer().containsWorld(e.getPlayer().getWorld())) return;
 
 		ElfPower fruit = ElfPower.consumeFruit(e);
 
@@ -46,55 +43,46 @@ public class PlayerListener implements Listener
 		{
 			food.makeElf();
 		}
-
-
 	}
 
 	@EventHandler
 	public void playerBreakBlock(BlockBreakEvent e)
 	{
-		World w = e.getPlayer().getWorld();
-		if(!pass(w)) return;
 		if(e.isCancelled()) return;
+		if(!Minegusta.getServer().containsWorld(e.getPlayer().getWorld())) return;
 
 		DwarfPower mine = DwarfPower.miningBoost(e);
 		if(mine.isDwarf())
 		{
 			mine.applyMiningBoost();
 		}
-
 	}
 
 	@EventHandler
 	public void playerJoinEvent(PlayerJoinEvent e)
 	{
 		Player p = e.getPlayer();
-		World w = p.getWorld();
 
-		HealthManager.checkPlayerHealth(p, w);
+		HealthManager.checkPlayerHealth(p, p.getWorld());
 
 		RaceManager.addPlayerToRaceMap(p);
-
 	}
 
 	@EventHandler
 	public void playerQuitEvent(PlayerQuitEvent e)
 	{
 		Player p = e.getPlayer();
-		World w = p.getWorld();
 
-		HealthManager.checkPlayerHealth(p, w);
+		HealthManager.checkPlayerHealth(p, p.getWorld());
 
 		RaceManager.removePlayerFromRaceMap(p);
-
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void entityDamageByEntity(EntityDamageByEntityEvent e)
 	{
-		World w = e.getEntity().getWorld();
-		if(!pass(w)) return;
 		if(e.isCancelled()) return;
+		if(!Minegusta.getServer().containsWorld(e.getEntity().getWorld())) return;
 
 		ElfPower arrow = ElfPower.arrowDamage(e);
 		DwarfPower axe = DwarfPower.axeBoost(e);
@@ -120,15 +108,13 @@ public class PlayerListener implements Listener
 		{
 			pearl.cancelPearlDamage();
 		}
-
 	}
 
 	@EventHandler
 	public void entityDamageEvent(EntityDamageEvent e)
 	{
-		World w = e.getEntity().getWorld();
-		if(!pass(w)) return;
 		if(e.isCancelled()) return;
+		if(!Minegusta.getServer().containsWorld(e.getEntity().getWorld())) return;
 
 		DwarfPower arrowWeakness = DwarfPower.arrowWeaknesBoost(e);
 		ElfPower fireWeakness = ElfPower.fireDamage(e);
@@ -152,8 +138,7 @@ public class PlayerListener implements Listener
 	@EventHandler
 	public void entityDeathEvent(EntityDeathEvent e)
 	{
-		World w = e.getEntity().getWorld();
-		if(!pass(w)) return;
+		if(!Minegusta.getServer().containsWorld(e.getEntity().getWorld())) return;
 
 		DwarfPower strengthBoost = DwarfPower.strengthBoost(e);
 
@@ -173,9 +158,7 @@ public class PlayerListener implements Listener
 	@EventHandler
 	public void playerInteractEvent(PlayerInteractEvent e)
 	{
-		Player p = e.getPlayer();
-		World w = p.getWorld();
-		if(!pass(w)) return;
+		if(!Minegusta.getServer().containsWorld(e.getPlayer().getWorld())) return;
 
 		DwarfPower rage = DwarfPower.battleCryBoost(e);
 		Altar altar = Altar.altarCheck(e);
@@ -187,17 +170,14 @@ public class PlayerListener implements Listener
 
 		if(altar.isRightClick() && altar.isAltar() && altar.hasDiamondBlocks() && altar.isNotHuman())
 		{
-			Cure.curePlayer(p);
+			Cure.curePlayer(e.getPlayer());
 		}
-
-
 	}
 
 	@EventHandler
 	public void playerInteractEntityEvent(PlayerInteractEntityEvent e)
 	{
-		World w = e.getPlayer().getWorld();
-		if(!pass(w)) return;
+		if(!Minegusta.getServer().containsWorld(e.getPlayer().getWorld())) return;
 
 		DwarfPower rage = DwarfPower.battleCryBoost(e);
 
@@ -205,14 +185,12 @@ public class PlayerListener implements Listener
 		{
 			rage.applyBattleCryBoost();
 		}
-
 	}
 
 	@EventHandler
 	public void entityMountEvent(EntityMountEvent e)
 	{
-		World w = e.getEntity().getWorld();
-		if(!pass(w)) return;
+		if(!Minegusta.getServer().containsWorld(e.getEntity().getWorld())) return;
 
 		ElfPower mount = ElfPower.horseMount(e);
 
@@ -231,12 +209,11 @@ public class PlayerListener implements Listener
 		HealthManager.checkPlayerHealth(p, w);
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerChatEvent(AsyncPlayerChatEvent e)
 	{
-		World w = e.getPlayer().getWorld();
-		if(!pass(w)) return;
 		if(e.isCancelled()) return;
+		if(!Minegusta.getServer().containsWorld(e.getPlayer().getWorld())) return;
 
 		EnderbornInfect enderbornInfect = EnderbornInfect.enderbornInfect(e);
 
@@ -245,10 +222,4 @@ public class PlayerListener implements Listener
 			enderbornInfect.makeEnderborn();
 		}
 	}
-
-	private boolean pass(World w)
-	{
-		return MinegustaStuff.worldCheck(w);
-	}
-
 }

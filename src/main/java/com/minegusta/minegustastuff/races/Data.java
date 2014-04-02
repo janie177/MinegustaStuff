@@ -1,23 +1,20 @@
 package com.minegusta.minegustastuff.races;
 
+import com.minegusta.minegustastuff.data.SaveFile;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class Data
 {
 	private static String defaultRace = Races.getDefaultRace();
 
-	private static FileConfiguration getConfig()
-	{
-		return FileManager.conf;
-	}
-
 	//Getting data
 
 	public static String getRace(String mojangID)
 	{
-		if(getConfig().getString(mojangID + ".race") != null)
+		FileConfiguration raceFile = SaveFile.get("races.yml").getConf();
+		if(raceFile.getString(mojangID + ".race") != null)
 		{
-			return getConfig().getString(mojangID + ".race");
+			return raceFile.getString(mojangID + ".race");
 		}
 		else return defaultRace.toLowerCase();
 	}
@@ -26,7 +23,8 @@ public class Data
 
 	public static void setRace(String mojangID, String race)
 	{
-		getConfig().set(mojangID + ".race", race);
+		SaveFile raceFile = SaveFile.get("races.yml");
+		raceFile.getConf().set(mojangID + ".race", race);
+		raceFile.recache();
 	}
-
 }

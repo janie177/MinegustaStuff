@@ -1,7 +1,7 @@
 package com.minegusta.minegustastuff.races;
 
 import com.google.common.collect.Lists;
-import com.minegusta.minegustastuff.data.ConfigFile;
+import com.minegusta.minegustastuff.Minegusta;
 
 import java.util.List;
 
@@ -9,19 +9,19 @@ public class Races
 {
 	public static String getDefaultRace()
 	{
-		if(ConfigFile.getDefaultConfig().isSet("default_race"))
+		if(Minegusta.getConfig().isSet("default_race"))
 		{
-			return ConfigFile.getDefaultConfig().getString("default_race");
+			return Minegusta.getConfig().getString("default_race");
 		}
 		return "human";
 	}
 
 	public enum RacesList
 	{
-		human("Human", ConfigFile.getDefaultConfig().getStringList("human")),
-		enderborn("Enderborn", ConfigFile.getDefaultConfig().getStringList("enderborn")),
-		dwarf("Dwarf", ConfigFile.getDefaultConfig().getStringList("dwarf")),
-		elf("Elf", ConfigFile.getDefaultConfig().getStringList("elf"));
+		human("Human", Minegusta.getConfig().getStringList("human")),
+		enderborn("Enderborn", Minegusta.getConfig().getStringList("enderborn")),
+		dwarf("Dwarf", Minegusta.getConfig().getStringList("dwarf")),
+		elf("Elf", Minegusta.getConfig().getStringList("elf"));
 
 		private String name;
 		private List<String> info;
@@ -50,9 +50,6 @@ public class Races
 				raceList.add(value.name);
 			}
 			return raceList;
-
 		}
-
 	}
-
 }

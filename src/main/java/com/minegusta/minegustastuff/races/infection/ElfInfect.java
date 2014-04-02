@@ -2,6 +2,7 @@ package com.minegusta.minegustastuff.races.infection;
 
 import com.minegusta.minegustastuff.races.Data;
 import com.minegusta.minegustastuff.races.RaceManager;
+import com.minegusta.minegustastuff.util.MojangIdProvider;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Sound;
@@ -11,7 +12,6 @@ import org.bukkit.inventory.ItemStack;
 
 public class ElfInfect
 {
-
 	private ItemStack i;
 	private Player p;
 
@@ -28,7 +28,7 @@ public class ElfInfect
 
 	public boolean isHuman()
 	{
-		return RaceManager.humanMap.containsKey(p.getName());
+		return "human".equals(Data.getRace(MojangIdProvider.getId(p)));
 	}
 
 	public boolean hasLore()
@@ -45,10 +45,8 @@ public class ElfInfect
 	{
 		p.sendMessage(ChatColor.GREEN + "You are now an elf!");
 		p.getWorld().spigot().playEffect(p.getLocation(), Effect.HAPPY_VILLAGER, 0, 0, 3, 3, 3, 1, 30, 25);
-		Data.setRace(p.getUniqueId().toString(), "elf");
+		Data.setRace(MojangIdProvider.getId(p), "elf");
 		p.playSound(p.getLocation(), Sound.ARROW_HIT, 1, 1);
 		RaceManager.updateRace(p);
 	}
-
-
 }

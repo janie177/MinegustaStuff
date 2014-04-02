@@ -1,21 +1,21 @@
 package com.minegusta.minegustastuff.races.health;
 
-import com.minegusta.minegustastuff.data.ConfigFile;
+import com.minegusta.minegustastuff.Minegusta;
 import com.minegusta.minegustastuff.races.Data;
+import com.minegusta.minegustastuff.util.MojangIdProvider;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 public class HealthManager
 {
-
 	//Checks
 
 	public static void checkPlayerHealth(Player p, World w)
 	{
-		if(!ConfigFile.getDefaultConfig().getList("worlds").contains(w.getName())) setHealthToNormal(p);
+		if(!Minegusta.getConfig().getList("worlds").contains(w.getName())) setHealthToNormal(p);
 		else
 		{
-			String race = Data.getRace(p.getUniqueId().toString());
+			String race = Data.getRace(MojangIdProvider.getId(p));
 
 			switch(race)
 			{
@@ -60,6 +60,4 @@ public class HealthManager
 		p.setHealthScale(20.0);
 		p.setMaxHealth(20.0);
 	}
-
-
 }

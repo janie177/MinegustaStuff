@@ -2,6 +2,7 @@ package com.minegusta.minegustastuff.races.infection;
 
 import com.minegusta.minegustastuff.races.Data;
 import com.minegusta.minegustastuff.races.RaceManager;
+import com.minegusta.minegustastuff.util.MojangIdProvider;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -13,7 +14,6 @@ import org.bukkit.inventory.ItemStack;
 
 public class EnderbornInfect
 {
-
 	private Player p;
 	private String message;
 	private Inventory inv;
@@ -32,7 +32,7 @@ public class EnderbornInfect
 
 	public boolean isHuman()
 	{
-		return RaceManager.humanMap.containsKey(p.getName());
+		return "human".equals(Data.getRace(MojangIdProvider.getId(p)));
 	}
 
 	public boolean hasEyesOfEnder()
@@ -47,7 +47,7 @@ public class EnderbornInfect
 
 	public void makeEnderborn()
 	{
-		Data.setRace(p.getUniqueId().toString(), "enderborn");
+		Data.setRace(MojangIdProvider.getId(p), "enderborn");
 		sendMessage();
 		p.getWorld().spigot().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, 0, 0, 3, 3, 3, 1, 30, 25);
 		p.playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 1, 1);
@@ -66,4 +66,3 @@ public class EnderbornInfect
 		p.sendMessage(ChatColor.DARK_PURPLE + "You are now enderborn!");
 	}
 }
-

@@ -13,7 +13,6 @@ import java.util.List;
 
 public class Recipes
 {
-
 	public static void registerRecipes()
 	{
 		elfRecipe();
@@ -69,5 +68,4 @@ public class Recipes
 		};
 		Bukkit.getServer().addRecipe(dwarfRecipe);
 	}
-
 }
