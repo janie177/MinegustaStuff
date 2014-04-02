@@ -23,201 +23,232 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.*;
 import org.spigotmc.event.entity.EntityMountEvent;
 
-public class PlayerListener implements Listener {
+public class PlayerListener implements Listener
+{
 
 
-    @EventHandler
-    public void playerEatEvent(PlayerItemConsumeEvent e) {
-        World w = e.getPlayer().getWorld();
-        if (!pass(w)) return;
+	@EventHandler
+	public void playerEatEvent(PlayerItemConsumeEvent e)
+	{
+		World w = e.getPlayer().getWorld();
+		if(!pass(w)) return;
 
-        ElfPower fruit = ElfPower.consumeFruit(e);
+		ElfPower fruit = ElfPower.consumeFruit(e);
 
-        ElfInfect food = ElfInfect.elfInfect(e);
+		ElfInfect food = ElfInfect.elfInfect(e);
 
-        if (fruit.isElf() && fruit.isFruit()) {
-            fruit.applyFoodRegenBoost();
-        }
+		if(fruit.isElf() && fruit.isFruit())
+		{
+			fruit.applyFoodRegenBoost();
+		}
 
-        if (food.isHuman() && food.hasLore() && food.isVeganStew()) {
-            food.makeElf();
-        }
-
-
-    }
-
-    @EventHandler
-    public void playerBreakBlock(BlockBreakEvent e) {
-        World w = e.getPlayer().getWorld();
-        if (!pass(w)) return;
-        if (e.isCancelled()) return;
-
-        DwarfPower mine = DwarfPower.miningBoost(e);
-        if (mine.isDwarf()) {
-            mine.applyMiningBoost();
-        }
-
-    }
-
-    @EventHandler
-    public void playerJoinEvent(PlayerJoinEvent e) {
-        Player p = e.getPlayer();
-        World w = p.getWorld();
-
-        HealthManager.checkPlayerHealth(p, w);
-
-        RaceManager.addPlayerToRaceMap(p);
-
-    }
-
-    @EventHandler
-    public void playerQuitEvent(PlayerQuitEvent e) {
-        Player p = e.getPlayer();
-        World w = p.getWorld();
-
-        HealthManager.checkPlayerHealth(p, w);
-
-        RaceManager.removePlayerFromRaceMap(p);
-
-    }
-
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void entityDamageByEntity(EntityDamageByEntityEvent e) {
-        World w = e.getEntity().getWorld();
-        if (!pass(w)) return;
-        if (e.isCancelled()) return;
-
-        ElfPower arrow = ElfPower.arrowDamage(e);
-        DwarfPower axe = DwarfPower.axeBoost(e);
-        EnderbornPower bleed = EnderbornPower.bleedBoost(e);
-        EnderbornPower pearl = EnderbornPower.enderPearlDamage(e);
-
-        if (arrow.isBowDamage() && arrow.arrowIsFiredByElf() && arrow.victimIsLiving() && arrow.canPVP()) {
-            arrow.applyBowDamage();
-        }
-
-        if (axe.isDwarf() && axe.hasAxe() && axe.canPVP()) {
-            axe.applyAxeBoost();
-        }
-
-        if (bleed.damagerIsEndeborn() && bleed.victimIsLiving() && bleed.canPVP()) {
-            bleed.applyBleedBoost();
-        }
-
-        if (pearl.isPearl() && pearl.entityIsEnderBorn()) {
-            pearl.cancelPearlDamage();
-        }
-
-    }
-
-    @EventHandler
-    public void entityDamageEvent(EntityDamageEvent e) {
-        World w = e.getEntity().getWorld();
-        if (!pass(w)) return;
-        if (e.isCancelled()) return;
-
-        DwarfPower arrowWeakness = DwarfPower.arrowWeaknesBoost(e);
-        ElfPower fireWeakness = ElfPower.fireDamage(e);
-        EnderbornPower fallDamage = EnderbornPower.fallDamageBoost(e);
-
-        if (arrowWeakness.isProjectile() && arrowWeakness.isDwarf() && arrowWeakness.canPVP()) {
-            arrowWeakness.applyProjectileWeakness();
-        }
-        if (fireWeakness.isFireDamage() && fireWeakness.isElf()) {
-            fireWeakness.applyFireDamage();
-        }
-
-        if (fallDamage.isPlayer() && fallDamage.entityIsEnderBorn() && fallDamage.isFallDamage()) {
-            fallDamage.cancelFallDamae();
-        }
-    }
-
-    @EventHandler
-    public void entityDeathEvent(EntityDeathEvent e) {
-        World w = e.getEntity().getWorld();
-        if (!pass(w)) return;
-
-        DwarfPower strengthBoost = DwarfPower.strengthBoost(e);
-
-        DwarfInfect dwarfInfect = DwarfInfect.dwarfInfect(e);
-
-        if (strengthBoost.isPlayer() && strengthBoost.killerIsPlayer() && strengthBoost.isDwarf()) {
-            strengthBoost.applyStrengthBoost();
-        }
-
-        if (dwarfInfect.isByLava() && dwarfInfect.isHuman() && dwarfInfect.hasShinyGem()) {
-            dwarfInfect.makeDwarf();
-        }
-    }
-
-    @EventHandler
-    public void playerInteractEvent(PlayerInteractEvent e) {
-        Player p = e.getPlayer();
-        World w = p.getWorld();
-        if (!pass(w)) return;
-
-        DwarfPower rage = DwarfPower.battleCryBoost(e);
-        Altar altar = Altar.altarCheck(e);
-
-        if (rage.isRightClick() && rage.isDwarf() && rage.hasAxe()) {
-            rage.applyBattleCryBoost();
-        }
-
-        if (altar.isRightClick() && altar.isAltar() && altar.hasDiamondBlocks() && altar.isNotHuman()) {
-            Cure.curePlayer(p);
-        }
+		if(food.isHuman() && food.hasLore() && food.isVeganStew())
+		{
+			food.makeElf();
+		}
 
 
-    }
+	}
 
-    @EventHandler
-    public void playerInteractEntityEvent(PlayerInteractEntityEvent e) {
-        World w = e.getPlayer().getWorld();
-        if (!pass(w)) return;
+	@EventHandler
+	public void playerBreakBlock(BlockBreakEvent e)
+	{
+		World w = e.getPlayer().getWorld();
+		if(!pass(w)) return;
+		if(e.isCancelled()) return;
 
-        DwarfPower rage = DwarfPower.battleCryBoost(e);
+		DwarfPower mine = DwarfPower.miningBoost(e);
+		if(mine.isDwarf())
+		{
+			mine.applyMiningBoost();
+		}
 
-        if (rage.isDwarf() && rage.hasAxe()) {
-            rage.applyBattleCryBoost();
-        }
+	}
 
-    }
+	@EventHandler
+	public void playerJoinEvent(PlayerJoinEvent e)
+	{
+		Player p = e.getPlayer();
+		World w = p.getWorld();
 
-    @EventHandler
-    public void entityMountEvent(EntityMountEvent e) {
-        World w = e.getEntity().getWorld();
-        if (!pass(w)) return;
+		HealthManager.checkPlayerHealth(p, w);
 
-        ElfPower mount = ElfPower.horseMount(e);
+		RaceManager.addPlayerToRaceMap(p);
 
-        if (mount.isElf() && mount.isHorse()) {
-            mount.applyTameBoost();
-        }
-    }
+	}
 
-    @EventHandler
-    public void onPlayerWorldSwitch(PlayerChangedWorldEvent e) {
-        Player p = e.getPlayer();
-        World w = p.getWorld();
+	@EventHandler
+	public void playerQuitEvent(PlayerQuitEvent e)
+	{
+		Player p = e.getPlayer();
+		World w = p.getWorld();
 
-        HealthManager.checkPlayerHealth(p, w);
-    }
+		HealthManager.checkPlayerHealth(p, w);
 
-    @EventHandler
-    public void onPlayerChatEvent(AsyncPlayerChatEvent e) {
-        World w = e.getPlayer().getWorld();
-        if (!pass(w)) return;
-        if (e.isCancelled()) return;
+		RaceManager.removePlayerFromRaceMap(p);
 
-        EnderbornInfect enderbornInfect = EnderbornInfect.enderbornInfect(e);
+	}
 
-        if (enderbornInfect.isSpell() && enderbornInfect.isHuman() && enderbornInfect.hasEyesOfEnder()) {
-            enderbornInfect.makeEnderborn();
-        }
-    }
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void entityDamageByEntity(EntityDamageByEntityEvent e)
+	{
+		World w = e.getEntity().getWorld();
+		if(!pass(w)) return;
+		if(e.isCancelled()) return;
 
-    private boolean pass(World w) {
-        return MinegustaStuff.worldCheck(w);
-    }
+		ElfPower arrow = ElfPower.arrowDamage(e);
+		DwarfPower axe = DwarfPower.axeBoost(e);
+		EnderbornPower bleed = EnderbornPower.bleedBoost(e);
+		EnderbornPower pearl = EnderbornPower.enderPearlDamage(e);
+
+		if(arrow.isBowDamage() && arrow.arrowIsFiredByElf() && arrow.victimIsLiving() && arrow.canPVP())
+		{
+			arrow.applyBowDamage();
+		}
+
+		if(axe.isDwarf() && axe.hasAxe() && axe.canPVP())
+		{
+			axe.applyAxeBoost();
+		}
+
+		if(bleed.damagerIsEndeborn() && bleed.victimIsLiving() && bleed.canPVP())
+		{
+			bleed.applyBleedBoost();
+		}
+
+		if(pearl.isPearl() && pearl.entityIsEnderBorn())
+		{
+			pearl.cancelPearlDamage();
+		}
+
+	}
+
+	@EventHandler
+	public void entityDamageEvent(EntityDamageEvent e)
+	{
+		World w = e.getEntity().getWorld();
+		if(!pass(w)) return;
+		if(e.isCancelled()) return;
+
+		DwarfPower arrowWeakness = DwarfPower.arrowWeaknesBoost(e);
+		ElfPower fireWeakness = ElfPower.fireDamage(e);
+		EnderbornPower fallDamage = EnderbornPower.fallDamageBoost(e);
+
+		if(arrowWeakness.isProjectile() && arrowWeakness.isDwarf() && arrowWeakness.canPVP())
+		{
+			arrowWeakness.applyProjectileWeakness();
+		}
+		if(fireWeakness.isFireDamage() && fireWeakness.isElf())
+		{
+			fireWeakness.applyFireDamage();
+		}
+
+		if(fallDamage.isPlayer() && fallDamage.entityIsEnderBorn() && fallDamage.isFallDamage())
+		{
+			fallDamage.cancelFallDamae();
+		}
+	}
+
+	@EventHandler
+	public void entityDeathEvent(EntityDeathEvent e)
+	{
+		World w = e.getEntity().getWorld();
+		if(!pass(w)) return;
+
+		DwarfPower strengthBoost = DwarfPower.strengthBoost(e);
+
+		DwarfInfect dwarfInfect = DwarfInfect.dwarfInfect(e);
+
+		if(strengthBoost.isPlayer() && strengthBoost.killerIsPlayer() && strengthBoost.isDwarf())
+		{
+			strengthBoost.applyStrengthBoost();
+		}
+
+		if(dwarfInfect.isByLava() && dwarfInfect.isHuman() && dwarfInfect.hasShinyGem())
+		{
+			dwarfInfect.makeDwarf();
+		}
+	}
+
+	@EventHandler
+	public void playerInteractEvent(PlayerInteractEvent e)
+	{
+		Player p = e.getPlayer();
+		World w = p.getWorld();
+		if(!pass(w)) return;
+
+		DwarfPower rage = DwarfPower.battleCryBoost(e);
+		Altar altar = Altar.altarCheck(e);
+
+		if(rage.isRightClick() && rage.isDwarf() && rage.hasAxe())
+		{
+			rage.applyBattleCryBoost();
+		}
+
+		if(altar.isRightClick() && altar.isAltar() && altar.hasDiamondBlocks() && altar.isNotHuman())
+		{
+			Cure.curePlayer(p);
+		}
+
+
+	}
+
+	@EventHandler
+	public void playerInteractEntityEvent(PlayerInteractEntityEvent e)
+	{
+		World w = e.getPlayer().getWorld();
+		if(!pass(w)) return;
+
+		DwarfPower rage = DwarfPower.battleCryBoost(e);
+
+		if(rage.isDwarf() && rage.hasAxe())
+		{
+			rage.applyBattleCryBoost();
+		}
+
+	}
+
+	@EventHandler
+	public void entityMountEvent(EntityMountEvent e)
+	{
+		World w = e.getEntity().getWorld();
+		if(!pass(w)) return;
+
+		ElfPower mount = ElfPower.horseMount(e);
+
+		if(mount.isElf() && mount.isHorse())
+		{
+			mount.applyTameBoost();
+		}
+	}
+
+	@EventHandler
+	public void onPlayerWorldSwitch(PlayerChangedWorldEvent e)
+	{
+		Player p = e.getPlayer();
+		World w = p.getWorld();
+
+		HealthManager.checkPlayerHealth(p, w);
+	}
+
+	@EventHandler
+	public void onPlayerChatEvent(AsyncPlayerChatEvent e)
+	{
+		World w = e.getPlayer().getWorld();
+		if(!pass(w)) return;
+		if(e.isCancelled()) return;
+
+		EnderbornInfect enderbornInfect = EnderbornInfect.enderbornInfect(e);
+
+		if(enderbornInfect.isSpell() && enderbornInfect.isHuman() && enderbornInfect.hasEyesOfEnder())
+		{
+			enderbornInfect.makeEnderborn();
+		}
+	}
+
+	private boolean pass(World w)
+	{
+		return MinegustaStuff.worldCheck(w);
+	}
 
 }

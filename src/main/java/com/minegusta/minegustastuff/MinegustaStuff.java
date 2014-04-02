@@ -12,54 +12,57 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class MinegustaStuff extends JavaPlugin {
+public class MinegustaStuff extends JavaPlugin
+{
 
-    public static MinegustaStuff PLUGIN;
-    private static int SAVETASK;
-    private static int BOOSTTASK;
-    public static boolean WORLD_GUARD_ENABLED;
+	public static MinegustaStuff PLUGIN;
+	private static int SAVETASK;
+	private static int BOOSTTASK;
+	public static boolean WORLD_GUARD_ENABLED;
 
-    @Override
-    public void onEnable() {
-        PLUGIN = this;
-        //Load Files
-        ConfigFile.saveDefaultConfigFile();
-        FileManager.loadFile();
+	@Override
+	public void onEnable()
+	{
+		PLUGIN = this;
+		//Load Files
+		ConfigFile.saveDefaultConfigFile();
+		FileManager.loadFile();
 
-        //Reload safety
-        RaceManager.onReloadAddRacesToMap();
+		//Reload safety
+		RaceManager.onReloadAddRacesToMap();
 
-        //Listeners
-        Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
+		//Listeners
+		Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
 
-        //Tasks
+		//Tasks
 
-        SAVETASK = Tasks.startSaveTask();
-        BOOSTTASK = Tasks.startBoostCheck();
+		SAVETASK = Tasks.startSaveTask();
+		BOOSTTASK = Tasks.startBoostCheck();
 
-        //Depends
-        WORLD_GUARD_ENABLED = Bukkit.getPluginManager().isPluginEnabled("WorldGuard") && Bukkit.getPluginManager().getPlugin("WorldGuard") instanceof WorldGuardPlugin;
+		//Depends
+		WORLD_GUARD_ENABLED = Bukkit.getPluginManager().isPluginEnabled("WorldGuard") && Bukkit.getPluginManager().getPlugin("WorldGuard") instanceof WorldGuardPlugin;
 
+		//Register recipes
 
-        //Register recipes
+		Recipes.registerRecipes();
 
-        Recipes.registerRecipes();
+		//commands
+		getCommand("Race").setExecutor(new RaceCommands());
 
-        //commands
-        getCommand("Race").setExecutor(new RaceCommands());
+	}
 
-    }
+	@Override
+	public void onDisable()
+	{
 
-    @Override
-    public void onDisable() {
+		//Cancel tasks
+		Bukkit.getServer().getScheduler().cancelTask(SAVETASK);
+		Bukkit.getServer().getScheduler().cancelTask(BOOSTTASK);
 
-        //Cancel tasks
-        Bukkit.getServer().getScheduler().cancelTask(SAVETASK);
-        Bukkit.getServer().getScheduler().cancelTask(BOOSTTASK);
+	}
 
-    }
-
-    public static boolean worldCheck(World w) {
-        return ConfigFile.getDefaultConfig().getList("worlds").contains(w.getName());
-    }
+	public static boolean worldCheck(World w)
+	{
+		return ConfigFile.getDefaultConfig().getList("worlds").contains(w.getName());
+	}
 }

@@ -17,139 +17,160 @@ import org.spigotmc.event.entity.EntityMountEvent;
 import java.util.List;
 
 
-public class ElfPower {
+public class ElfPower
+{
 
-    //Lists
-    private List<ItemStack> fruits = Lists.newArrayList(new ItemStack(Material.APPLE), new ItemStack(Material.MELON), new ItemStack(Material.GOLDEN_APPLE), new ItemStack(Material.MUSHROOM_SOUP), new ItemStack(Material.POTATO_ITEM), new ItemStack(Material.CARROT_ITEM));
+	//Lists
+	private List<ItemStack> fruits = Lists.newArrayList(new ItemStack(Material.APPLE), new ItemStack(Material.MELON), new ItemStack(Material.GOLDEN_APPLE), new ItemStack(Material.MUSHROOM_SOUP), new ItemStack(Material.POTATO_ITEM), new ItemStack(Material.CARROT_ITEM));
 
+	//Variables. ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-//Variables. ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	Entity entity;
+	EntityDamageEvent.DamageCause cause;
+	Entity victim;
+	Player player;
+	double damage;
+	LivingEntity livingVictim;
+	String uuid;
+	Arrow arrow;
+	ItemStack fruit;
+	Entity mount;
 
-    Entity entity;
-    EntityDamageEvent.DamageCause cause;
-    Entity victim;
-    Player player;
-    double damage;
-    LivingEntity livingVictim;
-    String uuid;
-    Arrow arrow;
-    ItemStack fruit;
-    Entity mount;
+	//Constructors. ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-//Constructors. ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+	private ElfPower(EntityDamageEvent e)
+	{
+		entity = e.getEntity();
+		cause = e.getCause();
+		uuid = entity.getUniqueId().toString();
+	}
 
-    private ElfPower(EntityDamageEvent e) {
-        entity = e.getEntity();
-        cause = e.getCause();
-        uuid = entity.getUniqueId().toString();
-    }
+	private ElfPower(EntityDamageByEntityEvent e)
+	{
+		entity = e.getDamager();
+		victim = e.getEntity();
+		uuid = entity.getUniqueId().toString();
+	}
 
-    private ElfPower(EntityDamageByEntityEvent e) {
-        entity = e.getDamager();
-        victim = e.getEntity();
-        uuid = entity.getUniqueId().toString();
-    }
+	private ElfPower(PlayerItemConsumeEvent e)
+	{
+		entity = e.getPlayer();
+		player = e.getPlayer();
+		fruit = e.getItem();
+		uuid = entity.getUniqueId().toString();
+	}
 
-    private ElfPower(PlayerItemConsumeEvent e) {
-        entity = e.getPlayer();
-        player = e.getPlayer();
-        fruit = e.getItem();
-        uuid = entity.getUniqueId().toString();
-    }
+	private ElfPower(EntityMountEvent e)
+	{
+		entity = e.getEntity();
+		mount = e.getMount();
+		uuid = entity.getUniqueId().toString();
+	}
 
-    private ElfPower(EntityMountEvent e) {
-        entity = e.getEntity();
-        mount = e.getMount();
-        uuid = entity.getUniqueId().toString();
-    }
+	//getting the class. ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-//getting the class. ----------------------------------------------------------------------------------------------------------------------------------------------------------
+	public static ElfPower fireDamage(EntityDamageEvent e)
+	{
+		return new ElfPower(e);
+	}
 
-    public static ElfPower fireDamage(EntityDamageEvent e) {
-        return new ElfPower(e);
-    }
+	public static ElfPower arrowDamage(EntityDamageByEntityEvent e)
+	{
+		return new ElfPower(e);
+	}
 
-    public static ElfPower arrowDamage(EntityDamageByEntityEvent e) {
-        return new ElfPower(e);
-    }
+	public static ElfPower consumeFruit(PlayerItemConsumeEvent e)
+	{
+		return new ElfPower(e);
+	}
 
-    public static ElfPower consumeFruit(PlayerItemConsumeEvent e) {
-        return new ElfPower(e);
-    }
+	public static ElfPower horseMount(EntityMountEvent e)
+	{
+		return new ElfPower(e);
+	}
 
-    public static ElfPower horseMount(EntityMountEvent e) {
-        return new ElfPower(e);
-    }
+	//Boolean Methods -------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+	public boolean isElf()
+	{
+		return RaceManager.pRaces.containsKey(uuid) && RaceManager.pRaces.get(uuid).equalsIgnoreCase("elf");
+	}
 
-//Boolean Methods -------------------------------------------------------------------------------------------------------------------------------------------------------------
+	public boolean isFireDamage()
+	{
+		return cause.equals(EntityDamageEvent.DamageCause.FIRE_TICK);
+	}
 
-    public boolean isElf() {
-        return RaceManager.pRaces.containsKey(uuid) && RaceManager.pRaces.get(uuid).equalsIgnoreCase("elf");
-    }
+	public boolean isHorse()
+	{
+		return mount instanceof Horse;
+	}
 
-    public boolean isFireDamage() {
-        return cause.equals(EntityDamageEvent.DamageCause.FIRE_TICK);
-    }
+	public boolean isPlayer()
+	{
+		return entity instanceof Player;
+	}
 
-    public boolean isHorse() {
-        return mount instanceof Horse;
-    }
+	public boolean victimIsLiving()
+	{
+		return victim instanceof LivingEntity;
+	}
 
-    public boolean isPlayer() {
-        return entity instanceof Player;
-    }
+	public boolean canPVP()
+	{
+		return WorldGuardManager.canPVP(victim);
+	}
 
-    public boolean victimIsLiving() {
-        return victim instanceof LivingEntity;
-    }
+	public boolean isBowDamage()
+	{
+		return entity instanceof Arrow;
+	}
 
-    public boolean canPVP() {
-        return WorldGuardManager.canPVP(victim);
-    }
+	public boolean arrowIsFiredByElf()
+	{
+		arrow = (Arrow) entity;
+		if(arrow.getShooter() instanceof Player)
+		{
+			Player p = (Player) arrow.getShooter();
+			return RaceManager.elfMap.containsKey(p.getName());
+		}
+		return false;
+	}
 
-    public boolean isBowDamage() {
-        return entity instanceof Arrow;
-    }
+	public boolean isFruit()
+	{
+		return fruits.contains(fruit);
+	}
 
-    public boolean arrowIsFiredByElf() {
-        arrow = (Arrow) entity;
-        if (arrow.getShooter() instanceof Player) {
-            Player p = (Player) arrow.getShooter();
-            return RaceManager.elfMap.containsKey(p.getName());
-        }
-        return false;
-    }
+	//Applying boosts. ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    public boolean isFruit() {
-        return fruits.contains(fruit);
-    }
+	public void applyTameBoost()
+	{
+		Horse h = (Horse) mount;
+		player = (Player) entity;
+		if(!h.isTamed())
+		{
+			h.setOwner(player);
+		}
+	}
 
-//Applying boosts. ------------------------------------------------------------------------------------------------------------------------------------------------------------
+	public void applyBowDamage()
+	{
+		livingVictim = (LivingEntity) victim;
+		livingVictim.damage(ConfigFile.getDefaultConfig().getDouble("elf_bonus_damage_bow"));
+	}
 
-    public void applyTameBoost() {
-        Horse h = (Horse) mount;
-        player = (Player) entity;
-        if (!h.isTamed()) {
-            h.setOwner(player);
-        }
-    }
+	public void applyFoodRegenBoost()
+	{
+		player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 3, 0, false));
+	}
 
-    public void applyBowDamage() {
-        livingVictim = (LivingEntity) victim;
-        livingVictim.damage(ConfigFile.getDefaultConfig().getDouble("elf_bonus_damage_bow"));
-    }
+	//Applying weaknesses. --------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    public void applyFoodRegenBoost() {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 3, 0, false));
-    }
-
-
-//Applying weaknesses. --------------------------------------------------------------------------------------------------------------------------------------------------------
-
-    public void applyFireDamage() {
-        player = (Player) entity;
-        player.damage(damage);
-    }
+	public void applyFireDamage()
+	{
+		player = (Player) entity;
+		player.damage(damage);
+	}
 
 }

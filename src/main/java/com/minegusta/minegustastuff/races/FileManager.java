@@ -7,31 +7,41 @@ import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 
-public class FileManager {
+public class FileManager
+{
 
-    static Plugin p = MinegustaStuff.PLUGIN;
-    static File file;
-    static FileConfiguration conf;
+	static Plugin p = MinegustaStuff.PLUGIN;
+	static File file;
+	static FileConfiguration conf;
 
-    public static void loadFile() {
-        try {
-            file = new File(p.getDataFolder(), "races.yml");
+	public static void loadFile()
+	{
+		try
+		{
+			file = new File(p.getDataFolder(), "races.yml");
 
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+			if(!file.exists())
+			{
+				file.createNewFile();
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 
-        conf = YamlConfiguration.loadConfiguration(file);
-    }
+		conf = YamlConfiguration.loadConfiguration(file);
+	}
 
-    public static void saveFile() {
-        try {
-            conf.save(file);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	public static void saveFile()
+	{
+		try
+		{
+			conf.save(file);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 }
