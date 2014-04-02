@@ -27,7 +27,6 @@ public class Tasks {
                 PermanentBoosts.elfBoost();
                 PermanentBoosts.enderbornBoost();
 
-
             }
         }, 0, 20);
     }
