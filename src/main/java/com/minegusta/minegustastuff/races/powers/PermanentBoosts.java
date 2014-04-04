@@ -44,32 +44,51 @@ public class PermanentBoosts
 
 			World w = p.getWorld();
 			if(!pass(w)) return;
-			if(isInWater(p) && canGetDamage(p))
-			{
-				p.damage(getEnderbornWaterDamage());
-				updatePotionEffect(PotionEffectType.WEAKNESS, p, 3 * 20, 1);
-				updatePotionEffect(PotionEffectType.SLOW, p, 3 * 20, 1);
-			}
+
 			updatePotionEffect(PotionEffectType.JUMP, p, 3 * 20, 2);
-
-			final Location loc = p.getLocation();
-			final int x = loc.getBlockX();
-			final int z = loc.getBlockZ();
-
-			if(isRaining(w) && canGetDamage(p) & inInRain(w, x, z, loc) && isNotInDesert(x, z, w))
-			{
-				p.damage(getEnderbornWaterDamage());
-				updatePotionEffect(PotionEffectType.WEAKNESS, p, 3 * 20, 1);
-				updatePotionEffect(PotionEffectType.SLOW, p, 3 * 20, 1);
-			}
-
-			if(p.isSneaking())
-			{
-				updatePotionEffect(PotionEffectType.INVISIBILITY, p, 3 * 20, 0);
-				p.getWorld().spigot().playEffect(p.getLocation(), Effect.PARTICLE_SMOKE, 0, 0, 1, 0, 1, 0, 50, 25);
-			}
+			enderbornSneakBoost(p);
+			enderbornWaterDamage(p);
+			enderbornRainDamage(p, w);
 		}
 	}
+
+	//-----------------------------------------------------------------------------------------
+
+	private static void enderbornRainDamage(Player p, World w)
+	{
+		final Location loc = p.getLocation();
+		final int x = loc.getBlockX();
+		final int z = loc.getBlockZ();
+
+		if(isRaining(w) && canGetDamage(p) & inInRain(w, x, z, loc) && isNotInDesert(x, z, w))
+		{
+			p.damage(getEnderbornWaterDamage());
+			updatePotionEffect(PotionEffectType.WEAKNESS, p, 3 * 20, 1);
+			updatePotionEffect(PotionEffectType.SLOW, p, 3 * 20, 1);
+		}
+	}
+
+	private static void enderbornWaterDamage(Player p)
+	{
+		if(isInWater(p) && canGetDamage(p))
+		{
+			p.damage(getEnderbornWaterDamage());
+			updatePotionEffect(PotionEffectType.WEAKNESS, p, 3 * 20, 1);
+			updatePotionEffect(PotionEffectType.SLOW, p, 3 * 20, 1);
+		}
+	}
+
+	private static void enderbornSneakBoost(Player p)
+	{
+		if(p.isSneaking())
+		{
+			updatePotionEffect(PotionEffectType.INVISIBILITY, p, 3 * 20, 0);
+			p.getWorld().spigot().playEffect(p.getLocation(), Effect.PARTICLE_SMOKE, 0, 0, 1, 0, 1, 0, 50, 25);
+		}
+	}
+
+
+	//-----------------------------------------------------------------------------------------
 
 	private static boolean isInWater(Player p)
 	{
