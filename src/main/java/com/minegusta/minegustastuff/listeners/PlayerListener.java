@@ -34,7 +34,7 @@ public class PlayerListener implements Listener
 
 		ElfInfect food = ElfInfect.elfInfect(e);
 
-		if(fruit.isElf() && fruit.isFruit())
+		if(fruit.isPlayer() && fruit.isElf() && fruit.isFruit())
 		{
 			fruit.applyFoodRegenBoost();
 		}
@@ -52,7 +52,7 @@ public class PlayerListener implements Listener
 		if(!Minegusta.getServer().containsWorld(e.getPlayer().getWorld())) return;
 
 		DwarfPower mine = DwarfPower.miningBoost(e);
-		if(mine.isDwarf())
+		if(mine.isPlayer() && mine.isDwarf())
 		{
 			mine.applyMiningBoost();
 		}
@@ -89,22 +89,22 @@ public class PlayerListener implements Listener
 		EnderbornPower bleed = EnderbornPower.bleedBoost(e);
 		EnderbornPower pearl = EnderbornPower.enderPearlDamage(e);
 
-		if(arrow.isBowDamage() && arrow.arrowIsFiredByElf() && arrow.victimIsLiving() && arrow.canPVP())
+		if(arrow.isBowDamage() && arrow.isPlayer() && arrow.arrowIsFiredByElf() && arrow.victimIsLiving() && arrow.canPVP())
 		{
 			arrow.applyBowDamage();
 		}
 
-		if(axe.isDwarf() && axe.hasAxe() && axe.canPVP())
+		if(axe.isPlayer() && axe.isDwarf() && axe.hasAxe() && axe.canPVP())
 		{
 			axe.applyAxeBoost();
 		}
 
-		if(bleed.damagerIsEndeborn() && bleed.victimIsLiving() && bleed.canPVP())
+		if(bleed.isPlayer() && bleed.damagerIsEndeborn() && bleed.victimIsLiving() && bleed.canPVP())
 		{
 			bleed.applyBleedBoost();
 		}
 
-		if(pearl.isPearl() && pearl.entityIsEnderBorn())
+		if(pearl.isPearl() && pearl.isPlayer() && pearl.entityIsEnderBorn())
 		{
 			pearl.cancelPearlDamage();
 		}
@@ -120,11 +120,11 @@ public class PlayerListener implements Listener
 		ElfPower fireWeakness = ElfPower.fireDamage(e);
 		EnderbornPower fallDamage = EnderbornPower.fallDamageBoost(e);
 
-		if(arrowWeakness.isProjectile() && arrowWeakness.isDwarf() && arrowWeakness.canPVP())
+		if(arrowWeakness.isProjectile() && arrowWeakness.isPlayer() && arrowWeakness.isDwarf() && arrowWeakness.canPVP())
 		{
 			arrowWeakness.applyProjectileWeakness();
 		}
-		if(fireWeakness.isFireDamage() && fireWeakness.isElf())
+		if(fireWeakness.isFireDamage() && fireWeakness.isPlayer() && fireWeakness.isElf())
 		{
 			fireWeakness.applyFireDamage();
 		}
@@ -163,7 +163,7 @@ public class PlayerListener implements Listener
 		DwarfPower rage = DwarfPower.battleCryBoost(e);
 		Altar altar = Altar.altarCheck(e);
 
-		if(rage.isRightClick() && rage.isDwarf() && rage.hasAxe())
+		if(rage.isRightClick() && rage.isPlayer() && rage.isDwarf() && rage.hasAxe())
 		{
 			rage.applyBattleCryBoost();
 		}
@@ -181,7 +181,7 @@ public class PlayerListener implements Listener
 
 		DwarfPower rage = DwarfPower.battleCryBoost(e);
 
-		if(rage.isDwarf() && rage.hasAxe())
+		if(rage.isPlayer() && rage.isDwarf() && rage.hasAxe())
 		{
 			rage.applyBattleCryBoost();
 		}
@@ -194,7 +194,7 @@ public class PlayerListener implements Listener
 
 		ElfPower mount = ElfPower.horseMount(e);
 
-		if(mount.isElf() && mount.isHorse())
+		if(mount.isPlayer() && mount.isElf() && mount.isHorse())
 		{
 			mount.applyTameBoost();
 		}

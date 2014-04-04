@@ -3,6 +3,7 @@ package com.minegusta.minegustastuff.races.commands;
 import com.google.common.collect.Lists;
 import com.minegusta.minegustastuff.Minegusta;
 import com.minegusta.minegustastuff.races.Data;
+import com.minegusta.minegustastuff.races.RaceManager;
 import com.minegusta.minegustastuff.races.Races;
 import com.minegusta.minegustastuff.util.MojangIdProvider;
 import org.bukkit.ChatColor;
@@ -27,6 +28,11 @@ public class RaceCommands implements CommandExecutor
 	List<String> humanInfect = Lists.newArrayList(ChatColor.RED + "- - - Cure - - -", "To become a human again:", ChatColor.GRAY + "  - Right click an altar.", ChatColor.GRAY + "  - Pay 30 diamonds and 20 emeralds.", "To make an altar:", ChatColor.GRAY + "  - 1 Emerald Block", ChatColor.GRAY + "  - 2 Diamond Blocks under it.");
 
 	List<String> reloaded = Lists.newArrayList("Sucessfully reloaded config.");
+
+	private String getRace(Player p)
+	{
+		return RaceManager.pRaces.get(p);
+	}
 
 	private List<String> getRaceInfo(String raceName)
 	{
@@ -88,7 +94,7 @@ public class RaceCommands implements CommandExecutor
 				}
 				else if(args[0].equalsIgnoreCase("show"))
 				{
-					p.sendMessage(ChatColor.YELLOW + "You are currently a: " + getRaceInfo(Data.getRace(MojangIdProvider.getId(p))));
+					p.sendMessage(ChatColor.YELLOW + "You are currently a: " + getRace(p));
 					return true;
 				}
 				else if(args[0].equalsIgnoreCase("Info"))

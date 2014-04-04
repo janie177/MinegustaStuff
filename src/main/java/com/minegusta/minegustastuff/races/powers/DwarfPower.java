@@ -133,7 +133,12 @@ public class DwarfPower
 
 	public boolean isPlayer()
 	{
-		return entity instanceof Player;
+		if(entity instanceof Player)
+		{
+			uuid = MojangIdProvider.getId((Player) entity);
+			return true;
+		}
+		return false;
 	}
 
 	public boolean isDwarf()
@@ -150,7 +155,7 @@ public class DwarfPower
 	{
 		if(entity instanceof Player)
 		{
-			uuid = entity.getUniqueId().toString();
+			uuid = MojangIdProvider.getId((Player) entity);
 			return true;
 		}
 		return false;

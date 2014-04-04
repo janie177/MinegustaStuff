@@ -109,7 +109,12 @@ public class ElfPower
 
 	public boolean isPlayer()
 	{
-		return entity instanceof Player;
+		if(entity instanceof Player)
+		{
+			uuid = MojangIdProvider.getId((Player) entity);
+			return true;
+		}
+		return false;
 	}
 
 	public boolean victimIsLiving()
