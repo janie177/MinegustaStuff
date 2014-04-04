@@ -4,11 +4,9 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.minegusta.minegustastuff.Minegusta;
 import com.minegusta.minegustastuff.races.RaceManager;
+import com.minegusta.minegustastuff.util.MojangIdProvider;
 import com.minegusta.minegustastuff.util.WorldGuardManager;
-import org.bukkit.Effect;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -21,10 +19,9 @@ public class PermanentBoosts
 
 	public static void elfBoost()
 	{
-		for(String name : getElves())
+		for(String uuid : getElves())
 		{
-			if(getPlayerFromName(name) == null) return;
-			Player p = getPlayerFromName(name);
+			Player p = Bukkit.getPlayer(MojangIdProvider.toUUID(uuid));
 			if(!pass(p.getWorld())) return;
 			updatePotionEffect(PotionEffectType.SPEED, p, 3 * 20, 0);
 			if(isInWater(p))
@@ -37,10 +34,9 @@ public class PermanentBoosts
 
 	public static void enderbornBoost()
 	{
-		for(String name : getEnderborn())
+		for(String uuid : getEnderborn())
 		{
-			if(getPlayerFromName(name) == null) return;
-			Player p = getPlayerFromName(name);
+			Player p = Bukkit.getPlayer(MojangIdProvider.toUUID(uuid));
 
 			World w = p.getWorld();
 			if(!pass(w)) return;

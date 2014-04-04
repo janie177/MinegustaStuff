@@ -31,7 +31,7 @@ public class RaceCommands implements CommandExecutor
 
 	private String getRace(Player p)
 	{
-		return RaceManager.pRaces.get(p);
+		return RaceManager.pRaces.get(MojangIdProvider.getId(p));
 	}
 
 	private List<String> getRaceInfo(String raceName)
